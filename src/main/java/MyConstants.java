@@ -12,11 +12,14 @@ public class MyConstants {
     public static final String backupEmailKey = "backupEmail";
     public static final String imageURLKey = "imageURL";
     public static final String telKey = "telephone";
+
     public static final String resumeKey = "resume";
+
     public static final String coIDKey = "coID";
     public static final String coNameKey = "coName";
     public static final String coAddressKey = "coAddress";
     public static final String coFieldKey = "coField";
+
     public static final String appIDKey = "appIDKey";
     public static final String appVersionKey = "appIDKey";
     public static final String appOSVersionKey = "appIDKey";
@@ -30,6 +33,14 @@ public class MyConstants {
     public static final String sizeKey = "appIDKey";
     public static final String appCategoryKey = "appIDKey";
     public static final String appReleaseDateKey = "appReleaseDateKey";
+
+    public static final String headingKey = "headingKey";
+    public static final String contextKey = "contextKey";
+    public static final String reviewRatingKey = "reviewRatingKey";
+    public static final String reviewDateKey = "reviewDateKey";
+    public static final String reviewIDKey = "reviewIDKey";
+
+
 
 
     public static final String commandUserSignUp = "sign up a new user account";
@@ -91,6 +102,10 @@ public class MyConstants {
     public static final String enterPassword = "You must login before performing queries.\n" +
             "If you don't have an account, type \"sign up a new user account\" or \"sign up a new developer account\" to create your account";
     public static final String goodbyeMessage = "Thank you for your time.";
+    public static final String searchTypeMessage = "How do you wish to search the apps?";
+    public static final String errorSearchTypeMessage = "You may only search:\n" +
+            "- by category\n" +
+            "- by name";
     public static final String errorInCommandMessage = "The query you entered does not match any of the valid commands.\n" +
             "If you don't know what command to enter, type \"help\".";
 }

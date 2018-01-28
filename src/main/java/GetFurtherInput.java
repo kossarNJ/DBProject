@@ -10,7 +10,7 @@ public class GetFurtherInput {
     private static final String fname = "Please enter your first name.";
     private static final String lname = "Please enter your last name.";
     private static final String postalCode = "Please enter your postal code.";
-    private static final String date = "Please enter your date of birth in the following format yyyy/mm/dd.";
+    private static final String date = "Please enter your date of birth in the following format: yyyy/mm/dd.";
     private static final String backupEmail = "Please enter your backup email.";
     private static final String imageURL = "Please enter the URL of your image.";
     private static final String telephone = "Please enter your telephone number.";
@@ -34,6 +34,13 @@ public class GetFurtherInput {
     private static final String appOSVersion = "Please enter the version of the operating system the application is compatible with.";
     private static final String appVersion = "Please enter the version of the application.";
     private static final String appReleaseDate = "Please enter the release date of the application in the following format: yyyy-mm-dd.";
+
+    private static final String heading = "Please enter the heading of the review.";
+    private static final String context = "Please enter the text of the review.";
+    private static final String reviewRating = "Please enter the text of the review.";
+    private static final String reviewDate = "Please enter the date of the review in the following format: yyyy/mm/dd.";
+
+
 //    private static final String rate = "Please enter the language of the application.";
 
 
@@ -207,15 +214,64 @@ public class GetFurtherInput {
         return parameters;
     }
 
-//    public HashMap<String, Object> newReview(Scanner scanner) {
-//        HashMap<String, Object> parameters = new HashMap<>();
-//
-//        parameters.put(MyConstants.headingKey, scanner.nextLine());
-//        parameters.put(MyConstants.context, scanner.nextLine());
-//        parameters.put(MyConstants.context, scanner.nextLine());
-//
-//        //review id is the app id + app.commentNum
-//        return parameters;
-//    }
+    public HashMap<String, Object> newReview(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+
+        System.out.println(appID);
+        parameters.put(MyConstants.appIDKey, scanner.nextLine());
+
+        System.out.println(heading);
+        parameters.put(MyConstants.headingKey, scanner.nextLine());
+
+        System.out.println(context);
+        parameters.put(MyConstants.contextKey, scanner.nextLine());
+
+        System.out.println(reviewRating);
+        parameters.put(MyConstants.reviewRatingKey, scanner.nextLine());
+
+        System.out.println(reviewDate);
+        parameters.put(MyConstants.reviewDateKey, scanner.nextLine());
+
+//        String reviewID = parameters.get(MyConstants.appIDKey) +
+
+//        parameters.put(MyConstants.reviewIDKey, )
+        //review id is the app id + app.commentNum
+        //TODO ye fekri be hale review ID bokon.
+        return parameters;
+    }
+
+    public HashMap<String, Object> getReviews(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(appID);
+        parameters.put(MyConstants.appIDKey, scanner.nextLine());
+        return parameters;
+    }
+
+    public HashMap<String, Object> searchApps(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(MyConstants.searchTypeMessage);
+        System.out.println(MyConstants.byCategory);
+        System.out.println(MyConstants.byName);
+        boolean valid = false;
+        String type = "";
+        while (!valid) {
+            type = scanner.nextLine();
+            switch (type) {
+                case MyConstants.byCategory:
+                    System.out.println(appCategory);
+                    parameters.put(MyConstants.appCategoryKey, scanner.nextLine());
+                    valid = true;
+                    break;
+                case MyConstants.byName:
+                    System.out.println(appName);
+                    parameters.put(MyConstants.appNameKey, scanner.nextLine());
+                    valid = true;
+                    break;
+                default:
+                    System.out.println(MyConstants.errorInCommandMessage);
+            }
+        }
+        return parameters;
+    }
 
 }

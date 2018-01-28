@@ -68,9 +68,23 @@ public class Main {
                         System.out.println(response);
                         break;
                     case MyConstants.commandNewReview:
-//                        result = getFurtherInput.newReview(scanner);
-//                        response = callQueries.newReview();
-//                        System.out.println(response);
+                        result = getFurtherInput.newReview(scanner);
+                        response = callQueries.newReview((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.headingKey), (String) result.get(MyConstants.contextKey), (String) result.get(MyConstants.reviewRatingKey), (String) result.get(MyConstants.reviewDateKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandGetReviews:
+                        result = getFurtherInput.getReviews(scanner);
+                        response = callQueries.getReviews((String) result.get(MyConstants.appIDKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandSearchAPPs:
+                        result = getFurtherInput.searchApps(scanner);
+                        if (result.keySet().contains(MyConstants.appNameKey)) {
+                            response = callQueries.searchAppsByName((String) result.get(MyConstants.appNameKey));
+                        } else {
+                            response = callQueries.searchAppsByCategory((String) result.get(MyConstants.appCategoryKey));
+                        }
+                        System.out.println(response);
                         break;
                     case MyConstants.help:
                         System.out.println(MyConstants.helpList);

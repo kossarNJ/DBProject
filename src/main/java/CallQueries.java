@@ -169,5 +169,27 @@ public class CallQueries {
         return null;
 
     }
+
+    public String newReview(String appID, String heading, String context, String rating, String date) {
+        return null;
+        //TODO implement
+        //review id is app id+ app.comment num.
+    }
+
+    public String getReviews(String appID) {
+        return null;
+        //TODO implement
+    }
+
+    public String searchAppsByCategory(String category) {
+        return null;
+        //TODO implement
+    }
+
+    public String searchAppsByName(String name) {
+        return null;
+        //TODO implement
+    }
+
 }
 
