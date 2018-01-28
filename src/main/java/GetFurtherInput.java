@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 public class GetFurtherInput {
     private static final String userEmail = "Please enter your email address.";
-    private static final String userPass = "Please enter your password.";
+    private static final String userPass = "Please enter your connectionPassword.";
     private static final String fname = "Please enter your first name.";
     private static final String lname = "Please enter your last name.";
     private static final String postalCode = "Please enter your postal code.";
@@ -31,7 +31,23 @@ public class GetFurtherInput {
     private static final String appLanguage = "Please enter the language of the application.";
     private static final String description = "Please enter the description of the application.";
     private static final String appOSName = "Please enter the name of the operating system the application is compatible with.";
-    private static final String appOSVersion = "Please enter the version of the operating system the application is compatible with.";
+    private static final String appOSVersion = "Please enter the version of the operating system the application is compatible with.\n" +
+            "The version may only be one of the followings:\n" +
+            "1. Kodiak\n" +
+            "2. Cheetah\n" +
+            "3. Puma\n" +
+            "4. Jaguar\n" +
+            "5. Panther\n" +
+            "6. Tiger\n" +
+            "7. Leopard\n" +
+            "8. Snow Leopard\n" +
+            "9. Lion\n" +
+            "10. Mountain Lion\n" +
+            "11. Mavericks\n" +
+            "12. Yosemite\n" +
+            "13. El Capitan\n" +
+            "14. Sierra\n" +
+            "15. High Sierra";
     private static final String appVersion = "Please enter the version of the application.";
     private static final String appReleaseDate = "Please enter the release date of the application in the following format: yyyy-mm-dd.";
 
@@ -50,33 +66,40 @@ public class GetFurtherInput {
     public HashMap<String, Object> signUpUser(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(userEmail);
-        String input = scanner.nextLine();
+//        String input = scanner.nextLine();
         //do we check to see if it's a valid email address?
-        parameters.put(MyConstants.userEmailKey, input);
+        parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
-        parameters.put(MyConstants.userPassKey, input);
+        parameters.put(MyConstants.userPassKey, scanner.nextLine());
 
         System.out.println(fname);
-        parameters.put(MyConstants.fNameKey, input);
+        parameters.put(MyConstants.fNameKey, scanner.nextLine());
 
         System.out.println(lname);
-        parameters.put(MyConstants.lNameKey, input);
+        parameters.put(MyConstants.lNameKey, scanner.nextLine());
 
         System.out.println(postalCode);
-        parameters.put(MyConstants.postalCodeKey, input);
+        parameters.put(MyConstants.postalCodeKey, scanner.nextLine());
 
         System.out.println(date);
-        parameters.put(MyConstants.dateOfBirthKey, input);
+        Date date = Date.getDateFromString(scanner.nextLine());
+        parameters.put(MyConstants.dateOfBirthKey, date);
 
         System.out.println(backupEmail);
-        parameters.put(MyConstants.backupEmailKey, input);
+        parameters.put(MyConstants.backupEmailKey, scanner.nextLine());
 
         System.out.println(imageURL);
-        parameters.put(MyConstants.imageURLKey, input);
+        parameters.put(MyConstants.imageURLKey, scanner.nextLine());
 
         System.out.println(telephone);
-        parameters.put(MyConstants.telKey, input);
+        parameters.put(MyConstants.telKey, scanner.nextLine());
+
+        System.out.println(appOSName);
+        parameters.put(MyConstants.appOSNameKey, scanner.nextLine());
+
+        System.out.println(appOSVersion);
+        parameters.put(MyConstants.appOSVersionKey, scanner.nextLine());
 
         return parameters;
     }
@@ -86,10 +109,10 @@ public class GetFurtherInput {
         System.out.println(userEmail);
         String input = scanner.nextLine();
         //do we check to see if it's a valid email address?
-        parameters.put(MyConstants.userEmailKey, input);
+        parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
-        parameters.put(MyConstants.userPassKey, input);
+        parameters.put(MyConstants.userPassKey, scanner.nextLine());
 
         return parameters;
     }
@@ -98,12 +121,12 @@ public class GetFurtherInput {
     public HashMap<String, Object> signOutUser(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(userEmail);
-        String input = scanner.nextLine();
+//        String input = scanner.nextLine();
         //do we check to see if it's a valid email address?
-        parameters.put(MyConstants.userEmailKey, input);
+        parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
-        parameters.put(MyConstants.userPassKey, input);
+        parameters.put(MyConstants.userPassKey, scanner.nextLine());
 
         return parameters;
     }
@@ -173,7 +196,8 @@ public class GetFurtherInput {
         parameters.put(MyConstants.appVersionKey, scanner.nextLine());
 
         System.out.println(appReleaseDate);
-        parameters.put(MyConstants.appReleaseDateKey, scanner.nextLine());
+        Date date = Date.getDateFromString(scanner.nextLine());
+        parameters.put(MyConstants.appReleaseDateKey, date);
 
 
         return parameters;
@@ -188,31 +212,39 @@ public class GetFurtherInput {
         parameters.put(MyConstants.userEmailKey, input);
 
         System.out.println(userPass);
-        parameters.put(MyConstants.userPassKey, input);
+        parameters.put(MyConstants.userPassKey, scanner.nextLine());
 
         System.out.println(fname);
-        parameters.put(MyConstants.fNameKey, input);
+        parameters.put(MyConstants.fNameKey, scanner.nextLine());
 
         System.out.println(lname);
-        parameters.put(MyConstants.lNameKey, input);
+        parameters.put(MyConstants.lNameKey, scanner.nextLine());
 
         System.out.println(postalCode);
-        parameters.put(MyConstants.postalCodeKey, input);
+        parameters.put(MyConstants.postalCodeKey, scanner.nextLine());
 
         System.out.println(date);
-        parameters.put(MyConstants.dateOfBirthKey, input);
+        Date date = Date.getDateFromString(scanner.nextLine());
+        parameters.put(MyConstants.dateOfBirthKey, date);
 
         System.out.println(backupEmail);
-        parameters.put(MyConstants.backupEmailKey, input);
+        parameters.put(MyConstants.backupEmailKey, scanner.nextLine());
 
         System.out.println(imageURL);
-        parameters.put(MyConstants.imageURLKey, input);
+        parameters.put(MyConstants.imageURLKey, scanner.nextLine());
 
         System.out.println(telephone);
-        parameters.put(MyConstants.telKey, input);
+        parameters.put(MyConstants.telKey, scanner.nextLine());
 
         System.out.println(resume);
-        parameters.put(MyConstants.resumeKey, input);
+        parameters.put(MyConstants.resumeKey, scanner.nextLine());
+
+        System.out.println(appOSName);
+        parameters.put(MyConstants.appOSNameKey, scanner.nextLine());
+
+        System.out.println(appOSVersion);
+        parameters.put(MyConstants.appOSVersionKey, scanner.nextLine());
+
 
         return parameters;
     }
@@ -233,7 +265,8 @@ public class GetFurtherInput {
         parameters.put(MyConstants.reviewRatingKey, scanner.nextLine());
 
         System.out.println(reviewDate);
-        parameters.put(MyConstants.reviewDateKey, scanner.nextLine());
+        Date date = Date.getDateFromString(scanner.nextLine());
+        parameters.put(MyConstants.reviewDateKey, date);
 
 //        String reviewID = parameters.get(MyConstants.appIDKey) +
 
@@ -336,7 +369,8 @@ public class GetFurtherInput {
             switch (type) {
                 case MyConstants.all:
                     System.out.println(updateDate);
-                    parameters.put(MyConstants.updateDateKey, scanner.nextLine());
+                    Date date1 = Date.getDateFromString(scanner.nextLine());
+                    parameters.put(MyConstants.updateDateKey, date1);
                     parameters.put(MyConstants.updateTypeKey, MyConstants.all);
                     valid = true;
                     break;
@@ -344,7 +378,8 @@ public class GetFurtherInput {
                     System.out.println(appID);
                     parameters.put(MyConstants.appIDKey, scanner.nextLine());
                     System.out.println(updateDate);
-                    parameters.put(MyConstants.updateDateKey, scanner.nextLine());
+                    Date date = Date.getDateFromString(scanner.nextLine());
+                    parameters.put(MyConstants.updateDateKey, date);
                     parameters.put(MyConstants.updateTypeKey, MyConstants.specific);
                     valid = true;
                     break;
@@ -376,7 +411,8 @@ public class GetFurtherInput {
         parameters.put(MyConstants.appIDKey, scanner.nextLine());
 
         System.out.println(versionDate);
-        parameters.put(MyConstants.versionDateKey, scanner.nextLine());
+        Date date = Date.getDateFromString(scanner.nextLine());
+        parameters.put(MyConstants.versionDateKey, date);
 
         System.out.println(appVersion);
         parameters.put(MyConstants.appVersionKey, scanner.nextLine());

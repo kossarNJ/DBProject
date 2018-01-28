@@ -113,6 +113,9 @@ class MyConstants {
     static final String searchTypeMessage = "How do you wish to search the apps?";
     static final String topAppsTypeMessage = "Which kind of applications do you wish to filter?";
     static final String updateAppsTypeMessage = "Which applications do you wish to update?";
+    static final String errorIncorrectUserPassMessage = "The username or connectionPassword you entered is incorrect.";
+    static final String errorLogOutMessage = "Your are not logged in or you have entered the wrong username or connectionPassword.";
+    static final String errorNotDevMessage = "Your account is not a developer account, therefore you may not register a new application.";
     static final String errorSearchTypeMessage = "You may only search:\n" +
             "- by category\n" +
             "- by name";

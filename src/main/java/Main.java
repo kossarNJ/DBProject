@@ -6,9 +6,13 @@ import java.util.Scanner;
  */
 public class Main {
     public static boolean isLoggedIn = false;
+    public static String connectionUserID = "postgres";
+    public static String connectionPassword = "123";
+    public static String url = "jdbc:postgresql://localhost:5432/App_Store_DB";
+
     public static String userID = "";
     public static String password = "";
-    public static final String url = "jdbc:postgresql://localhost:5432/App_Store_DB";
+
 
 
     public static void main(String[] args) {
@@ -26,19 +30,19 @@ public class Main {
                         break;
                     case MyConstants.commandDeveloperSignUp:
                         HashMap<String, Object> result = getFurtherInput.signUpDeveloper(scanner);
-                        String response = callQueries.signUpDeveloper((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey), (String) result.get(MyConstants.fNameKey), (String) result.get(MyConstants.lNameKey), (String) result.get(MyConstants.postalCodeKey), (Date) result.get(MyConstants.dateOfBirthKey), (String) result.get(MyConstants.backupEmailKey), (String) result.get(MyConstants.imageURLKey), (String) result.get(MyConstants.telKey), (String) result.get(MyConstants.resumeKey));
+                        String response = callQueries.signUpDeveloper((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey), (String) result.get(MyConstants.fNameKey), (String) result.get(MyConstants.lNameKey), (String) result.get(MyConstants.postalCodeKey), (Date) result.get(MyConstants.dateOfBirthKey), (String) result.get(MyConstants.backupEmailKey), (String) result.get(MyConstants.imageURLKey), (String) result.get(MyConstants.telKey), (String) result.get(MyConstants.resumeKey), (String) result.get(MyConstants.appOSNameKey), (String) result.get(MyConstants.appOSVersionKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandUserSignUp:
                         result = getFurtherInput.signUpUser(scanner);
-                        response = callQueries.signUpUser((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey), (String) result.get(MyConstants.fNameKey), (String) result.get(MyConstants.lNameKey), (String) result.get(MyConstants.postalCodeKey), (Date) result.get(MyConstants.dateOfBirthKey), (String) result.get(MyConstants.backupEmailKey), (String) result.get(MyConstants.imageURLKey), (String) result.get(MyConstants.telKey));
+                        response = callQueries.signUpUser((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey), (String) result.get(MyConstants.fNameKey), (String) result.get(MyConstants.lNameKey), (String) result.get(MyConstants.postalCodeKey), (Date) result.get(MyConstants.dateOfBirthKey), (String) result.get(MyConstants.backupEmailKey), (String) result.get(MyConstants.imageURLKey), (String) result.get(MyConstants.telKey), (String) result.get(MyConstants.appOSNameKey), (String) result.get(MyConstants.appOSVersionKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandUserSignIn:
                         result = getFurtherInput.signInUser(scanner);
                         response = callQueries.signInUser((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey));
                         System.out.println(response);
-                        //TODO update isLogged and email and password
+                        //TODO update isLogged and email and connectionPassword
                         break;
                     case MyConstants.endProgram:
                         isOver = true;
@@ -58,7 +62,7 @@ public class Main {
                         HashMap<String, Object> result = getFurtherInput.signOutUser(scanner);
                         String response = callQueries.signOutUser((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey));
                         System.out.println(response);
-                        //TODO update isLogged and email and password
+                        //TODO update isLogged and email and connectionPassword
                         break;
                     case MyConstants.commandNewCompany:
                         result = getFurtherInput.newCompany(scanner);
@@ -67,12 +71,12 @@ public class Main {
                         break;
                     case MyConstants.commandNewAPP:
                         result = getFurtherInput.newAPP(scanner);
-                        response = callQueries.newApp((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.appCategoryKey), (String) result.get(MyConstants.appNameKey), (String) result.get(MyConstants.sizeKey), (String) result.get(MyConstants.priceKey), (String) result.get(MyConstants.iconKey), (String) result.get(MyConstants.appLanguageKey), (String) result.get(MyConstants.descriptionKey), (String) result.get(MyConstants.appOSNameKey), (String) result.get(MyConstants.appOSVersionKey), (String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.coIDKey), (String) result.get(MyConstants.appReleaseDateKey));
+                        response = callQueries.newApp((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.appCategoryKey), (String) result.get(MyConstants.appNameKey), (String) result.get(MyConstants.sizeKey), (String) result.get(MyConstants.priceKey), (String) result.get(MyConstants.iconKey), (String) result.get(MyConstants.appLanguageKey), (String) result.get(MyConstants.descriptionKey), (String) result.get(MyConstants.appOSNameKey), (String) result.get(MyConstants.appOSVersionKey), (String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.coIDKey), (Date) result.get(MyConstants.appReleaseDateKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandNewReview:
                         result = getFurtherInput.newReview(scanner);
-                        response = callQueries.newReview((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.headingKey), (String) result.get(MyConstants.contextKey), (String) result.get(MyConstants.reviewRatingKey), (String) result.get(MyConstants.reviewDateKey));
+                        response = callQueries.newReview((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.headingKey), (String) result.get(MyConstants.contextKey), (String) result.get(MyConstants.reviewRatingKey), (Date) result.get(MyConstants.reviewDateKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandGetReviews:
