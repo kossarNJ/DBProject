@@ -83,8 +83,13 @@ public class CallQueries {
 
 
     public String signInUser(String userEmail, String userPass) {
-        return null;
         //TODO implement
+        //check if correct
+
+        String query = "SELECT user_password FROM Users WHERE user_email =  userEmail AND user_password = userPass;";
+
+        return null;
+
     }
 
     public String signOutUser(String userEmail, String userPass) {
@@ -150,7 +155,7 @@ public class CallQueries {
         }
 
 
-        String query2 = "INSERT INTO APP(appVersion, appID, releaseDate) VALUES(?, ?, ?)";
+        String query2 = "INSERT INTO APP_Version(appVersion, appID, releaseDate) VALUES(?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.userID, Main.password);
              PreparedStatement pst = con.prepareStatement(query2)) {
@@ -171,39 +176,103 @@ public class CallQueries {
     }
 
     public String newReview(String appID, String heading, String context, String rating, String date) {
-        return null;
-        //TODO implement
+        //TODO Change review id
         //review id is app id+ app.comment num.
+
+        String reviewId = "default";
+        String query1 = "INSERT INTO Review(reviewId, heading, context) VALUES(?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.userID, Main.password);
+             PreparedStatement pst = con.prepareStatement(query1)) {
+
+            pst.setString(1, reviewId);
+            pst.setString(2, heading);
+            pst.setString(3, context);
+
+
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(JavaPostgreSqlPrepared.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        String query2 = "INSERT INTO Post_Review(Main.userID, appID, reviewId) VALUES(?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.userID, Main.password);
+             PreparedStatement pst = con.prepareStatement(query2)) {
+
+            pst.setString(1, Main.userID);
+            pst.setString(2, appID);
+            pst.setString(3, reviewId);
+
+
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(JavaPostgreSqlPrepared.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        return null;
+
     }
 
     public String getReviews(String appID) {
-        return null;
         //TODO implement
+
+        String query = "SELECT * FROM Review WHERE review_id = (SELECT review_id FROM Post_Review WHERE Post_Review.app_id = appID);";
+
+
+        return null;
+
     }
 
     public String searchAppsByCategory(String category) {
-        return null;
         //TODO implement
+
+        String query = "SELECT * FROM APP WHERE category = category;";
+
+        return null;
+
     }
 
     public String searchAppsByName(String name) {
-        return null;
         //TODO implement
+
+        String query = "SELECT * FROM APP WHERE name = NULL;";
+
+        return null;
+
     }
 
     public String topFreeApps() {
-        return null;
         //TODO implement
+
+        String query = "SELECT * FROM APP WHERE price = 0 ORDER BY rate;";
+
+        return null;
+
     }
 
     public String topNotFreeApps() {
-        return null;
         //TODO implement
+
+        String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate;";
+
+        return null;
+
     }
 
     public String topApps() {
-        return null;
         //TODO implement
+
+        String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate;";
+
+        return null;
+
     }
 
     public String similarApps(String appId) {

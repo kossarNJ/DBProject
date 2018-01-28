@@ -46,6 +46,9 @@ public class Main {
                     default:
                         System.out.println(MyConstants.enterPassword);
                 }
+                if (isOver) {
+                    break;
+                }
             }
 
             while (isLoggedIn) {
@@ -148,7 +151,9 @@ public class Main {
                     default:
                         System.out.println(MyConstants.errorInCommandMessage);
                 }
-
+                if (isOver) {
+                    break;
+                }
             }
         }
 
