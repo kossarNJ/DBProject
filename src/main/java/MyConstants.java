@@ -29,6 +29,7 @@ public class MyConstants {
     public static final String priceKey = "appIDKey";
     public static final String sizeKey = "appIDKey";
     public static final String appCategoryKey = "appIDKey";
+    public static final String appReleaseDateKey = "appReleaseDateKey";
 
 
     public static final String commandUserSignUp = "sign up a new user account";

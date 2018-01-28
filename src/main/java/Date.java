@@ -49,4 +49,22 @@ public class Date {
         return null;
     }
 
+    @Override
+    public String toString() {
+        String result = "";
+        String dayS = String.valueOf(day);
+        while (dayS.length() < 2) {
+            dayS = "0" + dayS;
+        }
+        String yearS = String.valueOf(year);
+        while (dayS.length() < 4) {
+            yearS = "0" + yearS;
+        }
+        String monthS = String.valueOf(month);
+        while (dayS.length() < 2) {
+            monthS = "0" + monthS;
+        }
+        result = yearS + monthS + dayS;
+        return result;
+    }
 }

@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -34,6 +33,7 @@ public class GetFurtherInput {
     private static final String appOSName = "Please enter the name of the operating system the application is compatible with.";
     private static final String appOSVersion = "Please enter the version of the operating system the application is compatible with.";
     private static final String appVersion = "Please enter the version of the application.";
+    private static final String appReleaseDate = "Please enter the release date of the application in the following format: yyyy-mm-dd.";
 //    private static final String rate = "Please enter the language of the application.";
 
 
@@ -161,6 +161,10 @@ public class GetFurtherInput {
 
         System.out.println(appVersion);
         parameters.put(MyConstants.appVersionKey, scanner.nextLine());
+
+        System.out.println(appReleaseDate);
+        parameters.put(MyConstants.appReleaseDateKey, scanner.nextLine());
+
 
         return parameters;
     }
