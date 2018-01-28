@@ -1,80 +1,87 @@
 /**
  * Created by saharzargarzadeh on 1/27/18.
  */
-public class MyConstants {
+class MyConstants {
 
-    public static final String userEmailKey = "userEmail";
-    public static final String userPassKey = "userPass";
-    public static final String fNameKey = "fName";
-    public static final String lNameKey = "lName";
-    public static final String postalCodeKey = "postalCode";
-    public static final String dateOfBirthKey = "dateOfBirth";
-    public static final String backupEmailKey = "backupEmail";
-    public static final String imageURLKey = "imageURL";
-    public static final String telKey = "telephone";
+    static final String userEmailKey = "userEmail";
+    static final String userPassKey = "userPass";
+    static final String fNameKey = "fName";
+    static final String lNameKey = "lName";
+    static final String postalCodeKey = "postalCode";
+    static final String dateOfBirthKey = "dateOfBirth";
+    static final String backupEmailKey = "backupEmail";
+    static final String imageURLKey = "imageURL";
+    static final String telKey = "telephone";
 
-    public static final String resumeKey = "resume";
+    static final String resumeKey = "resume";
 
-    public static final String coIDKey = "coID";
-    public static final String coNameKey = "coName";
-    public static final String coAddressKey = "coAddress";
-    public static final String coFieldKey = "coField";
+    static final String coIDKey = "coID";
+    static final String coNameKey = "coName";
+    static final String coAddressKey = "coAddress";
+    static final String coFieldKey = "coField";
 
-    public static final String appIDKey = "appIDKey";
-    public static final String appVersionKey = "appIDKey";
-    public static final String appOSVersionKey = "appIDKey";
-    public static final String appOSNameKey = "appIDKey";
-    public static final String descriptionKey = "appIDKey";
+    static final String appIDKey = "appIDKey";
+    static final String appVersionKey = "appIDKey";
+    static final String appOSVersionKey = "appIDKey";
+    static final String appOSNameKey = "appIDKey";
+    static final String descriptionKey = "appIDKey";
     public static final String rateKey = "appIDKey";
-    public static final String appLanguageKey = "appIDKey";
-    public static final String appNameKey = "appIDKey";
-    public static final String iconKey = "appIDKey";
-    public static final String priceKey = "appIDKey";
-    public static final String sizeKey = "appIDKey";
-    public static final String appCategoryKey = "appIDKey";
-    public static final String appReleaseDateKey = "appReleaseDateKey";
+    static final String appLanguageKey = "appIDKey";
+    static final String appNameKey = "appIDKey";
+    static final String iconKey = "appIDKey";
+    static final String priceKey = "appIDKey";
+    static final String sizeKey = "appIDKey";
+    static final String appCategoryKey = "appIDKey";
+    static final String appReleaseDateKey = "appReleaseDateKey";
 
-    public static final String headingKey = "headingKey";
-    public static final String contextKey = "contextKey";
-    public static final String reviewRatingKey = "reviewRatingKey";
-    public static final String reviewDateKey = "reviewDateKey";
+    static final String headingKey = "headingKey";
+    static final String contextKey = "contextKey";
+    static final String reviewRatingKey = "reviewRatingKey";
+    static final String reviewDateKey = "reviewDateKey";
     public static final String reviewIDKey = "reviewIDKey";
 
 
+    static final String updateDateKey = "updateDateKey";
+
+    static final String versionDateKey = "versionDateKey";
 
 
-    public static final String commandUserSignUp = "sign up a new user account";
-    public static final String commandUserSignIn = "sign in to user account";
-    public static final String commandDeveloperSignUp = "sign up a new developer account";
-    public static final String commandNewCompany = "add new company";
-    public static final String commandNewAPP = "add new application";
-    public static final String commandNewReview = "add a review";
-    public static final String commandGetReviews = "get reviews";
-    public static final String commandSearchAPPs = "search apps";
-    public static final String byCategory = "by category";
-    public static final String byName = "by name";
-    public static final String commandTopApps = "top apps";
-    public static final String free = "free";
-    public static final String notFree = "not free";
-    public static final String any = "any";
-    public static final String commandSimilarAPPs = "similar applications";
-    public static final String commandDownloadAPP = "download an application";
-    public static final String commandUpdateAPP = "update application";
-    public static final String specific = "specific application";
-    public static final String all = "all applications";
-    public static final String commandViewUpdatable = "view updatable applications";
-    public static final String commandViewDownloaded = "view downloaded applications";
-    public static final String commandAddEmployer = "add employer company";
-    public static final String commandViewCompanyAPPS = "view applications of a certain company";
-    public static final String commandUserSignOut = "sign out of user account";
-    public static final String newVersion = "release a new update for an application";
-
-    public static final String endProgram = "end";
-    public static final String help = "help";
-    public static final String filterTypeKey = "filterTypeKey";
 
 
-    public static final String helpList =
+    static final String commandUserSignUp = "sign up a new user account";
+    static final String commandUserSignIn = "sign in to user account";
+    static final String commandDeveloperSignUp = "sign up a new developer account";
+    static final String commandNewCompany = "add new company";
+    static final String commandNewAPP = "add new application";
+    static final String commandNewReview = "add a review";
+    static final String commandGetReviews = "get reviews";
+    static final String commandSearchAPPs = "search apps";
+    static final String byCategory = "by category";
+    static final String byName = "by name";
+    static final String commandTopApps = "top apps";
+    static final String free = "free";
+    static final String notFree = "not free";
+    static final String any = "any";
+    static final String commandSimilarAPPs = "similar applications";
+    static final String commandDownloadAPP = "download an application";
+    static final String commandUpdateAPP = "update application";
+    static final String specific = "specific application";
+    static final String all = "all applications";
+    static final String commandViewUpdatable = "view updatable applications";
+    static final String commandViewDownloaded = "view downloaded applications";
+    static final String commandAddEmployer = "add employer company";
+    static final String commandViewCompanyAPPS = "view applications of a certain company";
+    static final String commandUserSignOut = "sign out of user account";
+    static final String commandNewVersion = "release a new update for an application";
+
+    static final String endProgram = "end";
+    static final String help = "help";
+    static final String filterTypeKey = "filterTypeKey";
+    static final String updateTypeKey = "updateTypeKey";
+
+
+
+    static final String helpList =
             "You may only enter one of the following commands:\n" +
                     "1. \"sign up a new user account\"  -> creating a new user account\n" +
                     "2. \"sign in to user account\"  -> sign in to your account\n" +
@@ -95,47 +102,27 @@ public class MyConstants {
                     "17. \"sign out of user account\"  -> sign out of the current user account\n" +
                     "18. \"release a new update for an application\"  -> release a new version of an existing application (only for developer accounts)";
 
-    public static final String welcomeMessage = "Hello!\n" +
+    static final String welcomeMessage = "Hello!\n" +
             "Welcome to the APP Store database.\n" +
             "If at any point you wish to see the available commands, type \"help\"\n" +
             "Once you're done, type \"end\" to terminate the program";
 
-    public static final String enterPassword = "You must login before performing queries.\n" +
+    static final String enterPassword = "You must login before performing queries.\n" +
             "If you don't have an account, type \"sign up a new user account\" or \"sign up a new developer account\" to create your account";
-    public static final String goodbyeMessage = "Thank you for your time.";
-    public static final String searchTypeMessage = "How do you wish to search the apps?";
-    public static final String topAppsTypeMessage = "Which kind of applications do you wish to filter?";
-    public static final String errorSearchTypeMessage = "You may only search:\n" +
+    static final String goodbyeMessage = "Thank you for your time.";
+    static final String searchTypeMessage = "How do you wish to search the apps?";
+    static final String topAppsTypeMessage = "Which kind of applications do you wish to filter?";
+    static final String updateAppsTypeMessage = "Which applications do you wish to update?";
+    static final String errorSearchTypeMessage = "You may only search:\n" +
             "- by category\n" +
             "- by name";
-    public static final String errorTopAppTypeMessage = "You may only filter applications that are:\n" +
+    static final String errorTopAppTypeMessage = "You may only filter applications that are:\n" +
             "- free\n" +
             "- not free\n" +
             "any";
-    public static final String errorInCommandMessage = "The query you entered does not match any of the valid commands.\n" +
+    static final String errorUpdateTypeMessage = "You may only update:\n" +
+            "- all\n" +
+            "- specific";
+    static final String errorInCommandMessage = "The query you entered does not match any of the valid commands.\n" +
             "If you don't know what command to enter, type \"help\".";
 }
-
-//1. sign up a new user account
-//        2. sign in to user account
-//        3. create developer account
-//        4. add new company
-//        5. add new application (only for developer accounts)
-//        6. add a review
-//        7. get reviews (only for developer accounts)
-//        8. search apps
-//        - by category
-//        - by name
-//        9. top apps
-//        - free
-//        - not free
-//        - any
-//        10. similar applications
-//        11. download an application
-//        12. update application
-//        - specific application
-//        - all applications
-//        13. view updatable applications
-//        14. view downloaded applications
-//        15. add employer company (only for developer accounts)
-//        16. view applications of a certain company

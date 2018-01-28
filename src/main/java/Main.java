@@ -97,9 +97,48 @@ public class Main {
                         }
                         System.out.println(response);
                         break;
-//                    case MyConstants.commandSimilarAPPs:
-//                        result = getFurtherInput.similarApps(scanner);
-//                        response = callQueries.
+                    case MyConstants.commandSimilarAPPs:
+                        result = getFurtherInput.similarApps(scanner);
+                        response = callQueries.similarApps((String) result.get(MyConstants.appIDKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandDownloadAPP:
+                        result = getFurtherInput.downloadApp(scanner);
+                        response = callQueries.downloadApp((String) result.get(MyConstants.appIDKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandUpdateAPP:
+                        result = getFurtherInput.updateApp(scanner);
+                        if (result.get(MyConstants.updateTypeKey).equals(MyConstants.all)) {
+                            response = callQueries.updateAllApps((String) result.get(MyConstants.updateDateKey));
+                        } else {
+                            response = callQueries.updateSpecificApp((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.updateDateKey));
+                        }
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandViewUpdatable:
+                        response = callQueries.viewUpdatable();
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandViewDownloaded:
+                        response = callQueries.viewDownloaded();
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandViewCompanyAPPS:
+                        result = getFurtherInput.viewCompanyApps(scanner);
+                        response = callQueries.viewCompanyApps((String) result.get(MyConstants.coIDKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandAddEmployer:
+                        result = getFurtherInput.addEmployer(scanner);
+                        response = callQueries.addEmployer((String) result.get(MyConstants.coIDKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandNewVersion:
+                        result = getFurtherInput.newVersion(scanner);
+                        response = callQueries.newVersion((String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.versionDateKey));
+                        System.out.println(response);
+                        break;
                     case MyConstants.help:
                         System.out.println(MyConstants.helpList);
                         break;
@@ -108,7 +147,6 @@ public class Main {
                         break;
                     default:
                         System.out.println(MyConstants.errorInCommandMessage);
-
                 }
 
             }

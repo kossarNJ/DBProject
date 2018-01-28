@@ -20,7 +20,7 @@ public class CallQueries {
             pst.setString(1, userEmail);
             pst.setString(2, fName);
             pst.setString(3, lName);
-            pst.setString(4,  postalCode);
+            pst.setString(4, postalCode);
             pst.setString(5, dateOfBirth.toString());
             pst.setString(6, backupEmail);
             pst.setString(7, userPass);
@@ -46,7 +46,7 @@ public class CallQueries {
             pst.setString(1, userEmail);
             pst.setString(2, fName);
             pst.setString(3, lName);
-            pst.setString(4,  postalCode);
+            pst.setString(4, postalCode);
             pst.setString(5, dateOfBirth.toString());
             pst.setString(6, backupEmail);
             pst.setString(7, userPass);
@@ -101,7 +101,7 @@ public class CallQueries {
             pst.setString(1, coID);
             pst.setString(2, coName);
             pst.setString(3, address);
-            pst.setString(4,  field);
+            pst.setString(4, field);
 
             pst.executeUpdate();
 
@@ -129,7 +129,7 @@ public class CallQueries {
             pst.setString(1, appID);
             pst.setString(2, appCategory);
             pst.setString(3, size);
-            pst.setString(4,  price);
+            pst.setString(4, price);
             pst.setString(5, icon);
             pst.setString(6, appName);
             pst.setString(7, appLanguge);
@@ -206,5 +206,50 @@ public class CallQueries {
         //TODO implement
     }
 
+    public String similarApps(String appId) {
+        return null;
+        //TODO implement
+    }
+
+    public String downloadApp(String appId) {
+        return null;
+        //TODO implement
+    }
+
+    public String updateAllApps(String date) {
+        return null;
+        //TODO implement
+    }
+
+    public String updateSpecificApp(String appID, String date) {
+        return null;
+        //TODO implement
+    }
+
+    public String viewUpdatable() {
+        return null;
+        //TODO implement
+    }
+
+    public String viewDownloaded() {
+        return null;
+        //TODO implement
+    }
+
+    public String viewCompanyApps(String coID) {
+        return null;
+        //TODO implement
+    }
+
+    public String addEmployer(String coID) {
+        return null;
+        //TODO implement
+    }
+
+    public String newVersion(String version, String appId, String date) {
+        return null;
+        //TODO implement
+    }
 }
+
 

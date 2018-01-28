@@ -40,6 +40,9 @@ public class GetFurtherInput {
     private static final String reviewRating = "Please enter the text of the review.";
     private static final String reviewDate = "Please enter the date of the review in the following format: yyyy/mm/dd.";
 
+    private static final String updateDate = "Please enter the date of the update in the following format: yyyy/mm/dd.";
+    private static final String versionDate = "Please enter the date of the version in the following format: yyyy/mm/dd.";
+
 
 //    private static final String rate = "Please enter the language of the application.";
 
@@ -304,6 +307,79 @@ public class GetFurtherInput {
             }
         }
 
+        return parameters;
+    }
+
+    public HashMap<String, Object> similarApps(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(appID);
+        parameters.put(MyConstants.appIDKey, scanner.nextLine());
+        return parameters;
+    }
+
+    public HashMap<String, Object> downloadApp (Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(appID);
+        parameters.put(MyConstants.appIDKey, scanner.nextLine());
+        return parameters;
+    }
+
+    public HashMap<String, Object> updateApp(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(MyConstants.updateAppsTypeMessage);
+        System.out.println(MyConstants.all);
+        System.out.println(MyConstants.specific);
+        boolean valid = false;
+        String type = "";
+        while (!valid) {
+            type = scanner.nextLine();
+            switch (type) {
+                case MyConstants.all:
+                    System.out.println(updateDate);
+                    parameters.put(MyConstants.updateDateKey, scanner.nextLine());
+                    parameters.put(MyConstants.updateTypeKey, MyConstants.all);
+                    valid = true;
+                    break;
+                case MyConstants.specific:
+                    System.out.println(appID);
+                    parameters.put(MyConstants.appIDKey, scanner.nextLine());
+                    System.out.println(updateDate);
+                    parameters.put(MyConstants.updateDateKey, scanner.nextLine());
+                    parameters.put(MyConstants.updateTypeKey, MyConstants.specific);
+                    valid = true;
+                    break;
+                default:
+                    System.out.println(MyConstants.errorUpdateTypeMessage);
+            }
+        }
+
+        return parameters;
+    }
+
+    public HashMap<String, Object> viewCompanyApps(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(coID);
+        parameters.put(MyConstants.coIDKey, scanner.nextLine());
+        return parameters;
+    }
+
+    public HashMap<String, Object> addEmployer(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(coID);
+        parameters.put(MyConstants.coIDKey, scanner.nextLine());
+        return parameters;
+    }
+
+    public HashMap<String, Object> newVersion(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(appID);
+        parameters.put(MyConstants.appIDKey, scanner.nextLine());
+
+        System.out.println(versionDate);
+        parameters.put(MyConstants.versionDateKey, scanner.nextLine());
+
+        System.out.println(appVersion);
+        parameters.put(MyConstants.appVersionKey, scanner.nextLine());
         return parameters;
     }
 
