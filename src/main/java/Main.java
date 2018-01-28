@@ -44,7 +44,7 @@ public class Main {
                         isOver = true;
                         break;
                     default:
-                        System.out.println(MyConstants.errorInCommandMessage);
+                        System.out.println(MyConstants.enterPassword);
                 }
             }
 
@@ -86,6 +86,20 @@ public class Main {
                         }
                         System.out.println(response);
                         break;
+                    case MyConstants.commandTopApps:
+                        result = getFurtherInput.topApps(scanner);
+                        if (result.get(MyConstants.filterTypeKey).equals(MyConstants.free)) {
+                            response = callQueries.topFreeApps();
+                        } else if (result.get(MyConstants.filterTypeKey).equals(MyConstants.notFree)) {
+                            response = callQueries.topNotFreeApps();
+                        } else {
+                            response = callQueries.topApps();
+                        }
+                        System.out.println(response);
+                        break;
+//                    case MyConstants.commandSimilarAPPs:
+//                        result = getFurtherInput.similarApps(scanner);
+//                        response = callQueries.
                     case MyConstants.help:
                         System.out.println(MyConstants.helpList);
                         break;
@@ -94,7 +108,9 @@ public class Main {
                         break;
                     default:
                         System.out.println(MyConstants.errorInCommandMessage);
+
                 }
+
             }
         }
 

@@ -191,5 +191,20 @@ public class CallQueries {
         //TODO implement
     }
 
+    public String topFreeApps() {
+        return null;
+        //TODO implement
+    }
+
+    public String topNotFreeApps() {
+        return null;
+        //TODO implement
+    }
+
+    public String topApps() {
+        return null;
+        //TODO implement
+    }
+
 }
 

@@ -71,6 +71,7 @@ public class MyConstants {
 
     public static final String endProgram = "end";
     public static final String help = "help";
+    public static final String filterTypeKey = "filterTypeKey";
 
 
     public static final String helpList =
@@ -103,9 +104,14 @@ public class MyConstants {
             "If you don't have an account, type \"sign up a new user account\" or \"sign up a new developer account\" to create your account";
     public static final String goodbyeMessage = "Thank you for your time.";
     public static final String searchTypeMessage = "How do you wish to search the apps?";
+    public static final String topAppsTypeMessage = "Which kind of applications do you wish to filter?";
     public static final String errorSearchTypeMessage = "You may only search:\n" +
             "- by category\n" +
             "- by name";
+    public static final String errorTopAppTypeMessage = "You may only filter applications that are:\n" +
+            "- free\n" +
+            "- not free\n" +
+            "any";
     public static final String errorInCommandMessage = "The query you entered does not match any of the valid commands.\n" +
             "If you don't know what command to enter, type \"help\".";
 }

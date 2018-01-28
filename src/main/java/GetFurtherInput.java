@@ -268,9 +268,42 @@ public class GetFurtherInput {
                     valid = true;
                     break;
                 default:
-                    System.out.println(MyConstants.errorInCommandMessage);
+                    System.out.println(MyConstants.errorSearchTypeMessage);
             }
         }
+        return parameters;
+    }
+
+    public HashMap<String, Object> topApps(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(MyConstants.topAppsTypeMessage);
+        System.out.println(MyConstants.free);
+        System.out.println(MyConstants.notFree);
+        System.out.println(MyConstants.any);
+        boolean valid = false;
+        String type = "";
+        while (!valid) {
+            type = scanner.nextLine();
+            switch (type) {
+                case MyConstants.free:
+//                    System.out.println(appCategory);
+                    parameters.put(MyConstants.filterTypeKey, MyConstants.free);
+                    valid = true;
+                    break;
+                case MyConstants.byName:
+//                    System.out.println(appName);
+                    parameters.put(MyConstants.filterTypeKey, MyConstants.notFree);
+                    valid = true;
+                    break;
+                case MyConstants.any:
+                    parameters.put(MyConstants.filterTypeKey, MyConstants.any);
+                    valid = true;
+                    break;
+                default:
+                    System.out.println(MyConstants.errorTopAppTypeMessage);
+            }
+        }
+
         return parameters;
     }
 
