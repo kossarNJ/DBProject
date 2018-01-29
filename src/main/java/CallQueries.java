@@ -26,15 +26,15 @@ public class CallQueries {
             pst.setString(3, lName);
             pst.setInt(4, Integer.parseInt(postalCode));
             pst.setDate(5, date);
-            System.out.println("after email");
+            //System.out.println("after email");
             pst.setString(6, backupEmail);
             pst.setString(7, userPass);
             pst.setString(8, imageURL);
             pst.setInt(9, Integer.parseInt(tel));
 //            pst.setQueryTimeout(10);
-            System.out.println("metadata: " + pst.getParameterMetaData().getParameterCount());
+            //System.out.println("metadata: " + pst.getParameterMetaData().getParameterCount());
 
-            System.out.println(pst.executeUpdate());
+            //System.out.println(pst.executeUpdate());
 
             try {
                 con.close();
@@ -539,11 +539,13 @@ public class CallQueries {
     }
 
     public String updateSpecificApp(String appID, String date) {
-        //TODO select last version from APP
+        //TODO check if updatable
         String lastVersion = "";
-        String query = "SELECT last_version FROM APP WHERE app_id = ?;";
+        //select last version
+        String query1 = "SELECT last_version FROM APP WHERE app_id = ?;";
 
         //TODO implement
+        String query2 = "Update APP_Version SET version_no = ? AND release_date = ? WHERE app_id = ?";
         return null;
 
     }
@@ -551,31 +553,78 @@ public class CallQueries {
     public String viewUpdatable() {
 
         //TODO implement
+        String query = "SELECT * FROM APP WHERE EXISTS(SELECT * FROM Has_Downloaded WHERE version_no != (SELECT last_version FROM APP WHERE APP.app_id = Has_Downloaded.app_id));";
         return null;
     }
 
     public String viewDownloaded() {
 
         //TODO implement
-        String query = "SELECT name FROM APP WHERE EXISTS(SELECT app_id FROM Has_Downloaded WHERE APP.app_id = Has_Downloaded.app_id AND user_id = ?;";
+        String query = "SELECT * FROM APP WHERE EXISTS(SELECT app_id FROM Has_Downloaded WHERE APP.app_id = Has_Downloaded.app_id AND user_id = ?;";
         return null;
     }
 
     public String viewCompanyApps(String coID) {
 
         //TODO implement
+        String query = "SELECT * FROM APP WHERE EXISTS(SELECT * FROM Developes WHERE APP.app_id = Developes.app_id AND EXISTS(SELECT * FROM Employment WHERE Developes.user_id = Employment.user_id AND Employment.co_id = ?));";
         return null;
     }
 
     public String addEmployer(String coID) {
+        //TODO test
+        String query = "INSERT INTO Employment(co_id, user_id) VALUES(?, ?)";
 
-        //TODO implement
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, coID);
+            pst.setString(2, Main.userID);
+
+            pst.executeUpdate();
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
         return null;
     }
 
     public String newVersion(String version, String appId, String date) {
 
-        //TODO implement
+        //TODO test
+        String query = "INSERT INTO Employment(version_no, app_id, release_date) VALUES(?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+
+            pst.setString(1, version);
+            pst.setString(2, appId);
+            pst.setString(3, date);
+
+            pst.executeUpdate();
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
         return null;
     }
 }
