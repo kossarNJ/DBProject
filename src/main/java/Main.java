@@ -42,7 +42,6 @@ public class Main {
                         result = getFurtherInput.signInUser(scanner);
                         response = callQueries.signInUser((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey));
                         System.out.println(response);
-                        //TODO update isLogged and email and connectionPassword
                         break;
                     case MyConstants.endProgram:
                         isOver = true;
@@ -62,7 +61,6 @@ public class Main {
                         HashMap<String, Object> result = getFurtherInput.signOutUser(scanner);
                         String response = callQueries.signOutUser((String) result.get(MyConstants.userEmailKey), (String) result.get(MyConstants.userPassKey));
                         System.out.println(response);
-                        //TODO update isLogged and email and connectionPassword
                         break;
                     case MyConstants.commandNewCompany:
                         result = getFurtherInput.newCompany(scanner);
@@ -111,15 +109,15 @@ public class Main {
                         break;
                     case MyConstants.commandDownloadAPP:
                         result = getFurtherInput.downloadApp(scanner);
-                        response = callQueries.downloadApp((String) result.get(MyConstants.appIDKey));
+                        response = callQueries.downloadApp((String) result.get(MyConstants.appIDKey), (Date) result.get(MyConstants.downloadDateKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandUpdateAPP:
                         result = getFurtherInput.updateApp(scanner);
                         if (result.get(MyConstants.updateTypeKey).equals(MyConstants.all)) {
-                            response = callQueries.updateAllApps((String) result.get(MyConstants.updateDateKey));
+                            response = callQueries.updateAllApps((Date) result.get(MyConstants.updateDateKey));
                         } else {
-                            response = callQueries.updateSpecificApp((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.updateDateKey));
+                            response = callQueries.updateSpecificApp((String) result.get(MyConstants.appIDKey), (Date) result.get(MyConstants.updateDateKey));
                         }
                         System.out.println(response);
                         break;
@@ -143,7 +141,12 @@ public class Main {
                         break;
                     case MyConstants.commandNewVersion:
                         result = getFurtherInput.newVersion(scanner);
-                        response = callQueries.newVersion((String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.versionDateKey));
+                        response = callQueries.newVersion((String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.appIDKey), (Date) result.get(MyConstants.versionDateKey));
+                        System.out.println(response);
+                        break;
+                    case MyConstants.commandRegisterBankAccount:
+                        result = getFurtherInput.registerAccount(scanner);
+                        response = callQueries.registerAccount((String) result.get(MyConstants.bankAccountKey));
                         System.out.println(response);
                         break;
                     case MyConstants.help:

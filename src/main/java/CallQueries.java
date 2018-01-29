@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -640,7 +641,6 @@ public class CallQueries {
     public String topNotFreeApps() {
         String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate DESC;";
 
-
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst = con.prepareStatement(query)
         ) {
@@ -767,67 +767,466 @@ public class CallQueries {
         //TODO implement
     }
 
-    public String downloadApp(String appId) {
-        //TODO select last version from APP
+    public String downloadApp(String appID, Date downloadDate) {
         String lastVersion = "";
         String query = "SELECT last_version FROM APP WHERE app_id = ?;";
-        //TODO implement
-        String query2 = "INSERT INTO Has_downloaded(user_id, app_id, date_of_download, version_no) VALUES(?, ?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            pst.setString(1, appID);
+            ResultSet rs = pst.executeQuery();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPP);
+            } else {
+                lastVersion = rs.getString(MyConstants.last_version);
+                String query2 = "INSERT INTO Has_downloaded(user_id, app_id, date_of_download, version_no) VALUES(?, ?, ?, ?)";
+
+                try (Connection con1 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                     PreparedStatement pst1 = con1.prepareStatement(query2)) {
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, downloadDate.getYear());
+                    calendar.set(Calendar.DAY_OF_MONTH, downloadDate.getDay());
+                    calendar.set(Calendar.MONTH, downloadDate.getMonth());
+                    java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
+
+                    pst1.setString(1, Main.userID);
+                    pst1.setString(2, appID);
+                    pst1.setDate(3, date1);
+                    pst1.setString(4, lastVersion);
+
+                    pst1.executeUpdate();
+
+                    try {
+                        con1.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException ex) {
+
+                    Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                    lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
         return null;
     }
 
-    public String updateAllApps(String date) {
+    public String updateAllApps(Date date) {
+
+        String query = "SELECT app_id FROM APP WHERE APP.app_id IN (SELECT Has_Downloaded.app_id FROM Has_Downloaded WHERE version_no != ALL (SELECT last_version FROM APP WHERE APP.app_id = Has_Downloaded.app_id) AND Has_Downloaded.user_id = ?);";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst1 = con.prepareStatement(query)
+        ) {
+            pst1.setString(1, Main.userID);
+            ResultSet rs = pst1.executeQuery();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoUpdatableApp);
+            } else {
+                System.out.println(updateSpecificApp(rs.getString(MyConstants.app_id), date));
+                while (rs.next()) {
+                    System.out.println(updateSpecificApp(rs.getString(MyConstants.app_id), date));
+                }
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
         return null;
-        //TODO implement
     }
 
-    public String updateSpecificApp(String appID, String date) {
-        //TODO check if updatable
+    public String updateSpecificApp(String appID, Date date) {
+
         String lastVersion = "";
-        //select last version
         String query1 = "SELECT last_version FROM APP WHERE app_id = ?;";
 
-        //TODO implement
-        String query2 = "Update APP_Version SET version_no = ? AND release_date = ? WHERE app_id = ?";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst1 = con.prepareStatement(query1)
+        ) {
+            pst1.setString(1, appID);
+            ResultSet rs = pst1.executeQuery();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNotUpdatableApp);
+            } else {
+                lastVersion = rs.getString(MyConstants.last_version);
+                String query2 = "Update Has_Downloaded SET version_no = ?, date_of_download = ? WHERE app_id = ?";
+
+                try (Connection con1 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                     PreparedStatement pst = con1.prepareStatement(query2)) {
+
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, date.getYear());
+                    calendar.set(Calendar.DAY_OF_MONTH, date.getDay());
+                    calendar.set(Calendar.MONTH, date.getMonth());
+                    java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
+
+                    pst.setString(1, lastVersion);
+                    pst.setDate(2, date1);
+                    pst.setString(3, appID);
+
+                    pst.executeUpdate();
+
+                    try {
+                        con1.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException ex) {
+
+                    Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                    lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
         return null;
 
     }
 
     public String viewUpdatable() {
+        String query = "SELECT * FROM APP WHERE APP.app_id IN (SELECT Has_Downloaded.app_id FROM Has_Downloaded WHERE version_no != ALL (SELECT last_version FROM APP WHERE APP.app_id = Has_Downloaded.app_id) AND Has_Downloaded.user_id = ?);";
 
-        //TODO implement
-        String query = "SELECT * FROM APP WHERE EXISTS(SELECT * FROM Has_Downloaded WHERE version_no != (SELECT last_version FROM APP WHERE APP.app_id = Has_Downloaded.app_id));";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst1 = con.prepareStatement(query)
+        ) {
+            pst1.setString(1, Main.userID);
+            ResultSet rs = pst1.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoUpdatableApp);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+
         return null;
     }
 
     public String viewDownloaded() {
+        String query = "SELECT * FROM APP WHERE EXISTS(SELECT app_id FROM Has_Downloaded WHERE APP.app_id = Has_Downloaded.app_id AND user_id = ?);";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst1 = con.prepareStatement(query)
+        ) {
+            pst1.setString(1, Main.userID);
+            ResultSet rs = pst1.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoDownloadedApp);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
 
-        //TODO implement
-        String query = "SELECT * FROM APP WHERE EXISTS(SELECT app_id FROM Has_Downloaded WHERE APP.app_id = Has_Downloaded.app_id AND user_id = ?;";
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
         return null;
     }
 
     public String viewCompanyApps(String coID) {
-
-        //TODO implement
         String query = "SELECT * FROM APP WHERE EXISTS(SELECT * FROM Developes WHERE APP.app_id = Developes.app_id AND EXISTS(SELECT * FROM Employment WHERE Developes.user_id = Employment.user_id AND Employment.co_id = ?));";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst1 = con.prepareStatement(query)
+        ) {
+            pst1.setString(1, coID);
+            ResultSet rs = pst1.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoCompanyApp);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+
         return null;
     }
 
     public String addEmployer(String coID) {
-        //TODO test
-        String query = "INSERT INTO Employment(co_id, user_id) VALUES(?, ?)";
-
+        String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
-             PreparedStatement pst = con.prepareStatement(query)) {
+             PreparedStatement pst1 = con.prepareStatement(query3)
+        ) {
+            pst1.setString(1, Main.userID);
+            ResultSet rs = pst1.executeQuery();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNotDevMessage);
+            } else {
+                String query = "INSERT INTO Employment(co_id, user_id) VALUES(?, ?)";
 
-            pst.setString(1, coID);
+                try (Connection con1 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                     PreparedStatement pst = con1.prepareStatement(query)) {
+
+                    pst.setString(1, coID);
+                    pst.setString(2, Main.userID);
+
+                    pst.executeUpdate();
+
+                    try {
+                        con1.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException ex) {
+
+                    Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                    lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+    }
+
+    public String newVersion(String version, String appId, Date date) {
+        String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst1 = con.prepareStatement(query3)
+        ) {
+            pst1.setString(1, Main.userID);
+            ResultSet rs = pst1.executeQuery();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNotDevMessage);
+            } else {
+                String query = "INSERT INTO APP_Version(version_no, app_id, release_date) VALUES(?, ?, ?)";
+
+                try (Connection con1 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                     PreparedStatement pst = con1.prepareStatement(query)) {
+
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, date.getYear());
+                    calendar.set(Calendar.DAY_OF_MONTH, date.getDay());
+                    calendar.set(Calendar.MONTH, date.getMonth());
+                    java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
+
+                    pst.setString(1, version);
+                    pst.setString(2, appId);
+                    pst.setDate(3, date1);
+
+                    pst.executeUpdate();
+
+                    try {
+                        con1.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (SQLException ex) {
+
+                    Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                    lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+    }
+
+    public String registerAccount(String bankAccount) {
+        String query = "INSERT INTO User_Bank_Account (card_no, user_id) VALUES(?, ?)";
+
+        try (Connection con1 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con1.prepareStatement(query)) {
+            pst.setBigDecimal(1, new BigDecimal(bankAccount));
             pst.setString(2, Main.userID);
 
             pst.executeUpdate();
 
             try {
-                con.close();
+                con1.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -837,37 +1236,6 @@ public class CallQueries {
             Logger lgr = Logger.getLogger(CallQueries.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
-
-        return null;
-    }
-
-    public String newVersion(String version, String appId, String date) {
-
-        //TODO test
-        String query = "INSERT INTO Employment(version_no, app_id, release_date) VALUES(?, ?, ?)";
-
-        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
-             PreparedStatement pst = con.prepareStatement(query)) {
-
-
-            pst.setString(1, version);
-            pst.setString(2, appId);
-            pst.setString(3, date);
-
-            pst.executeUpdate();
-
-            try {
-                con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        } catch (SQLException ex) {
-
-            Logger lgr = Logger.getLogger(CallQueries.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
-        }
-
         return null;
     }
 }

@@ -24,7 +24,16 @@ public class testQeries {
 //        callQueries.searchAppsByName("kosar");
 //        callQueries.topFreeApps();
 //        callQueries.topNotFreeApps();
-        callQueries.topApps();
+//        callQueries.topApps();
+//        callQueries.addEmployer("myCompany");
+//        callQueries.newVersion("2.0.0", "myApp6", Date.getDateFromString("1396-10-9"));
+//        callQueries.downloadApp("myApp3", Date.getDateFromString("1396-11-9"));
+//        callQueries.registerAccount("1000000000000200");
+//        callQueries.viewDownloaded();
+//        callQueries.viewCompanyApps("myCompany");
+//        callQueries.viewUpdatable();
+//        callQueries.updateSpecificApp("myApp3", Date.getDateFromString("1396-11-10"));
+        callQueries.updateAllApps(Date.getDateFromString("1396-11-10"));
     }
 }
 

@@ -45,6 +45,8 @@ class MyConstants {
 
     static final String versionDateKey = "versionDateKey";
 
+    static final String bankAccountKey = "bankAccountKey";
+
     static final String commentNumber = "comment_number";
     static final String heading = "heading";
     static final String content = "review_content";
@@ -95,11 +97,16 @@ class MyConstants {
     static final String commandViewCompanyAPPS = "view applications of a certain company";
     static final String commandUserSignOut = "sign out of user account";
     static final String commandNewVersion = "release a new update for an application";
+    static final String commandRegisterBankAccount = "register bank account";
 
     static final String endProgram = "end";
     static final String help = "help";
     static final String filterTypeKey = "filterTypeKey";
     static final String updateTypeKey = "updateTypeKey";
+
+    static final String downloadDateKey = "downloadDateKey";
+
+
 
 
 
@@ -122,7 +129,8 @@ class MyConstants {
                     "15. \"add employer company\"  -> adding a new connection to a company (only for developer accounts)\n" +
                     "16. \"view applications of a certain company\"  -> view all the applications provided by a certain company\n" +
                     "17. \"sign out of user account\"  -> sign out of the current user account\n" +
-                    "18. \"release a new update for an application\"  -> release a new version of an existing application (only for developer accounts)";
+                    "18. \"release a new update for an application\"  -> release a new version of an existing application (only for developer accounts)\n" +
+                    "19. \"register bank account\"  -> register your bank account in the database.";
 
     static final String welcomeMessage = "Hello!\n" +
             "Welcome to the APP Store database.\n" +
@@ -137,7 +145,7 @@ class MyConstants {
     static final String updateAppsTypeMessage = "Which applications do you wish to update?";
     static final String errorIncorrectUserPassMessage = "The username or connectionPassword you entered is incorrect.";
     static final String errorLogOutMessage = "Your are not logged in or you have entered the wrong username or connectionPassword.";
-    static final String errorNotDevMessage = "Your account is not a developer account, therefore you may not register a new application.";
+    static final String errorNotDevMessage = "Your account is not a developer account, therefore you may not perform this query.";
     static final String errorSearchTypeMessage = "You may only search:\n" +
             "- by category\n" +
             "- by name";
@@ -157,4 +165,8 @@ class MyConstants {
     static final String errorNoAPPCategory = "There are no applications in this category.";
     static final String errorNoAPPName = "There are no applications with this name.";
     static final String errorNoReview = "There are no reviews for this application.";
+    static final String errorNoDownloadedApp = "You do not have any downloaded applications.";
+    static final String errorNoCompanyApp = "There are no applications developed by this company.";
+    static final String errorNoUpdatableApp = "You do not have any updatable applications.";
+    static final String errorNotUpdatableApp = "The application may not be updated.";
 }

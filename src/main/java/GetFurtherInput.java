@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -58,6 +59,9 @@ public class GetFurtherInput {
 
     private static final String updateDate = "Please enter the date of the update in the following format: yyyy/mm/dd.";
     private static final String versionDate = "Please enter the date of the version in the following format: yyyy/mm/dd.";
+    private static final String downloadDate = "Please enter the date of the download in the following format: yyyy/mm/dd.";
+
+    private static final String bankAccount = "Please enter your card number. (must be a 16 digit number)";
 
 
 //    private static final String rate = "Please enter the language of the application.";
@@ -354,6 +358,10 @@ public class GetFurtherInput {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(appID);
         parameters.put(MyConstants.appIDKey, scanner.nextLine());
+
+        System.out.println(downloadDate);
+        Date date = Date.getDateFromString(scanner.nextLine());
+        parameters.put(MyConstants.downloadDateKey, date);
         return parameters;
     }
 
@@ -416,6 +424,13 @@ public class GetFurtherInput {
 
         System.out.println(appVersion);
         parameters.put(MyConstants.appVersionKey, scanner.nextLine());
+        return parameters;
+    }
+
+    public HashMap<String, Object> registerAccount(Scanner scanner) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        System.out.println(bankAccount);
+        parameters.put(MyConstants.bankAccountKey, scanner.nextLine());
         return parameters;
     }
 
