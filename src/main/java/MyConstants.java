@@ -45,6 +45,12 @@ class MyConstants {
 
     static final String versionDateKey = "versionDateKey";
 
+    static final String commentNumber = "comment_number";
+    static final String heading = "heading";
+    static final String content = "review_content";
+    static final String rating = "rating";
+    static final String date = "review_date";
+
 
 
 
@@ -128,4 +134,5 @@ class MyConstants {
             "- specific";
     static final String errorInCommandMessage = "The query you entered does not match any of the valid commands.\n" +
             "If you don't know what command to enter, type \"help\".";
+    static final String errorNoAPP = "There is no such application in the database.";
 }

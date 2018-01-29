@@ -36,11 +36,19 @@ public class CallQueries {
 
             System.out.println(pst.executeUpdate());
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(CallQueries.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
+
         String query2 = "INSERT INTO OS(name, version, user_id) VALUES(?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -51,6 +59,11 @@ public class CallQueries {
             pst.setString(3, userEmail);
 
             pst.executeUpdate();
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         } catch (SQLException ex) {
 
@@ -85,6 +98,11 @@ public class CallQueries {
 
             pst.executeUpdate();
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(CallQueries.class.getName());
@@ -101,6 +119,12 @@ public class CallQueries {
 
 
             pst.executeUpdate();
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         } catch (SQLException ex) {
 
@@ -119,6 +143,12 @@ public class CallQueries {
 
             pst.executeUpdate();
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(CallQueries.class.getName());
@@ -134,16 +164,22 @@ public class CallQueries {
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst = con.prepareStatement(query)
-             ) {
+        ) {
             pst.setString(1, userEmail);
             pst.setString(2, userPass);
             ResultSet rs = pst.executeQuery();
-            if(!rs.next()) {
+            if (!rs.next()) {
                 System.out.println(MyConstants.errorIncorrectUserPassMessage);
             } else {
                 Main.userID = userEmail;
                 Main.password = userPass;
                 Main.isLoggedIn = true;
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
         } catch (SQLException ex) {
@@ -179,6 +215,12 @@ public class CallQueries {
 
             pst.executeUpdate();
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(CallQueries.class.getName());
@@ -196,7 +238,7 @@ public class CallQueries {
         ) {
             pst1.setString(1, Main.userID);
             ResultSet rs = pst1.executeQuery();
-            if(!rs.next()) {
+            if (!rs.next()) {
                 System.out.println(MyConstants.errorNotDevMessage);
             } else {
                 String rate = "0";
@@ -223,6 +265,12 @@ public class CallQueries {
 
                     pst.executeUpdate();
 
+                    try {
+                        con1.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
                 } catch (SQLException ex) {
 
                     Logger lgr = Logger.getLogger(CallQueries.class.getName());
@@ -246,6 +294,12 @@ public class CallQueries {
 
                     pst.executeUpdate();
 
+                    try {
+                        con2.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
                 } catch (SQLException ex) {
 
                     Logger lgr = Logger.getLogger(CallQueries.class.getName());
@@ -263,11 +317,23 @@ public class CallQueries {
 
                     pst.executeUpdate();
 
+                    try {
+                        con4.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
                 } catch (SQLException ex) {
 
                     Logger lgr = Logger.getLogger(CallQueries.class.getName());
                     lgr.log(Level.SEVERE, ex.getMessage(), ex);
                 }
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
         } catch (SQLException ex) {
@@ -282,11 +348,36 @@ public class CallQueries {
     }
 
     public String newReview(String appID, String heading, String context, String rating, Date date) {
-        //TODO Change review id
-        //review id is app id+ app.comment num.
-
+        //TODO increase the length of review id.
+        String query3 = "SELECT comment_number FROM APP WHERE app_id = ?";
         String reviewId = "default";
-        String query1 = "INSERT INTO Review(review_id, heading, review_content, rating, review_date) VALUES(?, ?, ?, ?, ?)";
+
+
+        try (Connection con4 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con4.prepareStatement(query3)
+        ) {
+            pst.setString(1, appID);
+            ResultSet rs = pst.executeQuery();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPP);
+            } else {
+                int commentNum = Integer.parseInt(rs.getString(MyConstants.commentNumber)) + 1;
+                reviewId = appID + commentNum;
+            }
+
+            try {
+                con4.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        String query1 = "INSERT INTO Review(review_id, heading, review_content, rating, review_date, app_id, user_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst = con.prepareStatement(query1)) {
@@ -302,43 +393,55 @@ public class CallQueries {
             pst.setString(3, context);
             pst.setDouble(4, Double.parseDouble(rating));
             pst.setDate(5, date1);
+            pst.setString(6, appID);
+            pst.setString(7, Main.userID);
 
             pst.executeUpdate();
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(CallQueries.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
-
-        String query2 = "INSERT INTO Post_Review(user_id, app_id, review_id) VALUES(?, ?, ?)";
-
-        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
-             PreparedStatement pst = con.prepareStatement(query2)) {
-
-            pst.setString(1, Main.userID);
-            pst.setString(2, appID);
-            pst.setString(3, reviewId);
-
-
-            pst.executeUpdate();
-
-        } catch (SQLException ex) {
-
-            Logger lgr = Logger.getLogger(CallQueries.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
-        }
-
-
         return null;
 
     }
 
     public String getReviews(String appID) {
-        //TODO implement
+        String query = "SELECT * FROM Review WHERE app_id = ?";
 
-        String query = "SELECT * FROM Review WHERE review_id = (SELECT review_id FROM Post_Review WHERE Post_Review.app_id = appID);";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            pst.setString(1, appID);
+            ResultSet rs = pst.executeQuery();
+            int i = 1;
+            while (rs.next()) {
+                System.out.println("review #" + i++);
+                System.out.println(MyConstants.heading + ": " + rs.getString(MyConstants.heading));
+                System.out.println(MyConstants.content + ": " + rs.getString(MyConstants.content));
+                System.out.println(MyConstants.rating + ": " + rs.getString(MyConstants.rating));
+                System.out.println(MyConstants.date + ": " + rs.getString(MyConstants.date));
+                System.out.println();
+            }
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
 
         return null;
 
@@ -347,7 +450,34 @@ public class CallQueries {
     public String searchAppsByCategory(String category) {
         //TODO implement
 
-        String query = "SELECT * FROM APP WHERE category = category;";
+        String query = "SELECT * FROM APP WHERE category = ?;";
+//
+//        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+//             PreparedStatement pst = con.prepareStatement(query)
+//        ) {
+//            pst.setString(1, appID);
+//            ResultSet rs = pst.executeQuery();
+//            int i = 1;
+//            while (rs.next()) {
+//                System.out.println("review #" + i++);
+//                System.out.println(MyConstants.heading + ": " + rs.getString(MyConstants.heading));
+//                System.out.println(MyConstants.content + ": " + rs.getString(MyConstants.content));
+//                System.out.println(MyConstants.rating + ": " + rs.getString(MyConstants.rating));
+//                System.out.println(MyConstants.date + ": " + rs.getString(MyConstants.date));
+//                System.out.println();
+//            }
+//
+//            try {
+//                con.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        } catch (SQLException ex) {
+//
+//            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+//            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+//        }
 
         return null;
 
@@ -356,7 +486,7 @@ public class CallQueries {
     public String searchAppsByName(String name) {
         //TODO implement
 
-        String query = "SELECT * FROM APP WHERE name = NULL;";
+        String query = "SELECT * FROM APP WHERE name = ?;";
 
         return null;
 
@@ -395,8 +525,12 @@ public class CallQueries {
     }
 
     public String downloadApp(String appId) {
-        return null;
+        //TODO select last version from APP
+        String lastVersion = "";
+        String query = "SELECT last_version FROM APP WHERE app_id = ?;";
         //TODO implement
+        String query2 = "INSERT INTO Has_downloaded(user_id, app_id, date_of_download, version_no) VALUES(?, ?, ?, ?)";
+        return null;
     }
 
     public String updateAllApps(String date) {
@@ -405,33 +539,44 @@ public class CallQueries {
     }
 
     public String updateSpecificApp(String appID, String date) {
-        return null;
+        //TODO select last version from APP
+        String lastVersion = "";
+        String query = "SELECT last_version FROM APP WHERE app_id = ?;";
+
         //TODO implement
+        return null;
+
     }
 
     public String viewUpdatable() {
-        return null;
+
         //TODO implement
+        return null;
     }
 
     public String viewDownloaded() {
-        return null;
+
         //TODO implement
+        String query = "SELECT name FROM APP WHERE EXISTS(SELECT app_id FROM Has_Downloaded WHERE APP.app_id = Has_Downloaded.app_id AND user_id = ?;";
+        return null;
     }
 
     public String viewCompanyApps(String coID) {
-        return null;
+
         //TODO implement
+        return null;
     }
 
     public String addEmployer(String coID) {
-        return null;
+
         //TODO implement
+        return null;
     }
 
     public String newVersion(String version, String appId, String date) {
-        return null;
+
         //TODO implement
+        return null;
     }
 }
 
