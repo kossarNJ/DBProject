@@ -21,17 +21,17 @@ class MyConstants {
     static final String coFieldKey = "coField";
 
     static final String appIDKey = "appIDKey";
-    static final String appVersionKey = "appIDKey";
-    static final String appOSVersionKey = "appIDKey";
-    static final String appOSNameKey = "appIDKey";
-    static final String descriptionKey = "appIDKey";
-    public static final String rateKey = "appIDKey";
-    static final String appLanguageKey = "appIDKey";
-    static final String appNameKey = "appIDKey";
-    static final String iconKey = "appIDKey";
-    static final String priceKey = "appIDKey";
-    static final String sizeKey = "appIDKey";
-    static final String appCategoryKey = "appIDKey";
+    static final String appVersionKey = "appVersionKey";
+    static final String appOSVersionKey = "appOSVersionKey";
+    static final String appOSNameKey = "appOSNameKey";
+    static final String descriptionKey = "descriptionKey";
+    public static final String rateKey = "rateKey";
+    static final String appLanguageKey = "appLanguageKey";
+    static final String appNameKey = "appNameKey";
+    static final String iconKey = "iconKey";
+    static final String priceKey = "priceKey";
+    static final String sizeKey = "sizeKey";
+    static final String appCategoryKey = "appCategoryKey";
     static final String appReleaseDateKey = "appReleaseDateKey";
 
     static final String headingKey = "headingKey";
@@ -72,10 +72,6 @@ class MyConstants {
     static final String last_version = "last_version";
     static final String app_id = "app_id";
     static final String category = "category";
-
-
-
-
 
 
     static final String commandUserSignUp = "sign up a new user account";
@@ -120,23 +116,23 @@ class MyConstants {
             "You may only enter one of the following commands:\n" +
                     "1. \"sign up a new user account\"  -> creating a new user account\n" +
                     "2. \"sign in to user account\"  -> sign in to your account\n" +
-                    "3. \"create developer account\"  -> creating a new developer account\n" +
+                    "3. \"sign up a new developer account\"  -> creating a new developer account\n" +
                     "4. \"add new company\"  -> adding a new company to the database\n" +
                     "5. \"add new application\"  -> adding a new application to the database (only for developer accounts)\n" +
                     "6. \"add a review\"  -> posting a review for an application\n" +
                     "7. \"get reviews\"  -> viewing all the reviews posted for an application\n" +
                     "8. \"search apps\"  -> performing a search on the existing applications by either category or name\n" +
                     "9. \"top apps\"  -> viewing the applications with the highest rating, filtered by price or unfiltered\n" +
-                    "10. \"similar applications\"  -> viewing the applications that are similar to a certain applications\n" +
-                    "11. \"download an application\"  -> download an application onto your device\n" +
-                    "12. \"update application\"  -> update one of the existing applications on your device\n" +
-                    "13. \"view updatable applications\"  -> view a list of applications that can be updated\n" +
-                    "14. \"view downloaded applications\"  -> view a list of the applications you have downloaded\n" +
-                    "15. \"add employer company\"  -> adding a new connection to a company (only for developer accounts)\n" +
-                    "16. \"view applications of a certain company\"  -> view all the applications provided by a certain company\n" +
-                    "17. \"sign out of user account\"  -> sign out of the current user account\n" +
-                    "18. \"release a new update for an application\"  -> release a new version of an existing application (only for developer accounts)\n" +
-                    "19. \"register bank account\"  -> register your bank account in the database.";
+//                    "10. \"similar applications\"  -> viewing the applications that are similar to a certain applications\n" +
+                    "10. \"download an application\"  -> download an application onto your device\n" +
+                    "11. \"update application\"  -> update one of the existing applications on your device\n" +
+                    "12. \"view updatable applications\"  -> view a list of applications that can be updated\n" +
+                    "13. \"view downloaded applications\"  -> view a list of the applications you have downloaded\n" +
+                    "14. \"add employer company\"  -> adding a new connection to a company (only for developer accounts)\n" +
+                    "15. \"view applications of a certain company\"  -> view all the applications provided by a certain company\n" +
+                    "16. \"sign out of user account\"  -> sign out of the current user account\n" +
+                    "17. \"release a new update for an application\"  -> release a new version of an existing application (only for developer accounts)\n" +
+                    "18. \"register bank account\"  -> register your bank account in the database.";
 
     static final String welcomeMessage = "Hello!\n" +
             "Welcome to the APP Store database.\n" +
@@ -150,7 +146,7 @@ class MyConstants {
     static final String topAppsTypeMessage = "Which kind of applications do you wish to filter?";
     static final String updateAppsTypeMessage = "Which applications do you wish to update?";
     static final String errorIncorrectUserPassMessage = "The username or connectionPassword you entered is incorrect.";
-    static final String errorLogOutMessage = "Your are not logged in or you have entered the wrong username or connectionPassword.";
+    static final String errorLogOutMessage = "Your are not logged in or you have entered the wrong username or password.";
     static final String errorNotDevMessage = "Your account is not a developer account, therefore you may not perform this query.";
     static final String errorSearchTypeMessage = "You may only search:\n" +
             "- by category\n" +

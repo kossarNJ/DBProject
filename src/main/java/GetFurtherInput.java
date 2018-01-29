@@ -7,11 +7,11 @@ import java.util.Scanner;
  */
 class GetFurtherInput {
     private static final String userEmail = "Please enter your email address.";
-    private static final String userPass = "Please enter your connectionPassword.";
+    private static final String userPass = "Please enter your password.";
     private static final String fname = "Please enter your first name.";
     private static final String lname = "Please enter your last name.";
     private static final String postalCode = "Please enter your postal code.";
-    private static final String date = "Please enter your date of birth in the following format: yyyy/mm/dd.";
+    private static final String date = "Please enter your date of birth in the following format: yyyy-mm-dd.";
     private static final String backupEmail = "Please enter your backup email.";
     private static final String imageURL = "Please enter the URL of your image.";
     private static final String telephone = "Please enter your telephone number.";
@@ -24,15 +24,37 @@ class GetFurtherInput {
     private static final String fieldOfWork = "Please enter the company's field of work.";
 
     private static final String appID = "Please enter the ID of the application.";
-    private static final String appCategory = "Please enter the category of the application.";
+    private static final String appCategory = "Please enter the category of the application.\n" +
+            "The category may only be one of the followings:\n" +
+            "1. Business\n" +
+            "2. Developer Tools\n" +
+            "3. Education\n" +
+            "4. Entertainment\n" +
+            "5. Finance\n" +
+            "6. Games\n" +
+            "7. Graphics & Design\n" +
+            "8. Health & Fitness\n" +
+            "9. Lifestyle\n" +
+            "10. Medical\n" +
+            "11. Music" +
+            "12. News\n" +
+            "13. Photography\n" +
+            "14. Productivity\n" +
+            "15. Reference\n" +
+            "16. Social Networking\n" +
+            "17. Sports\n" +
+            "18. Travel\n" +
+            "19. Utilities\n" +
+            "20. Video\n" +
+            "21. Weather";
     private static final String appName = "Please enter the name of the application.";
     private static final String size = "Please enter the size of the application (in megabytes).";
     private static final String price = "Please enter the price of the application (in USD).";
     private static final String icon = "Please enter the URL for the icon of the application.";
     private static final String appLanguage = "Please enter the language of the application.";
     private static final String description = "Please enter the description of the application.";
-    private static final String appOSName = "Please enter the name of the operating system the application is compatible with.";
-    private static final String appOSVersion = "Please enter the version of the operating system the application is compatible with.\n" +
+    private static final String appOSName = "Please enter the name of the operating system.";
+    private static final String appOSVersion = "Please enter the version of the operating system.\n" +
             "The version may only be one of the followings:\n" +
             "1. Kodiak\n" +
             "2. Cheetah\n" +
@@ -54,7 +76,7 @@ class GetFurtherInput {
 
     private static final String heading = "Please enter the heading of the review.";
     private static final String context = "Please enter the text of the review.";
-    private static final String reviewRating = "Please enter the text of the review.";
+    private static final String reviewRating = "Please enter a rating for the application (the rating must be a real value between 0 and 5).";
     private static final String reviewDate = "Please enter the date of the review in the following format: yyyy/mm/dd.";
 
     private static final String updateDate = "Please enter the date of the update in the following format: yyyy/mm/dd.";
@@ -198,6 +220,7 @@ class GetFurtherInput {
         for (int i = 0; i < permissionNum; i++) {
             permissions.add(scanner.nextLine());
         }
+
         parameters.put(MyConstants.permissionKey, permissions);
 
 
@@ -319,7 +342,7 @@ class GetFurtherInput {
                     parameters.put(MyConstants.filterTypeKey, MyConstants.free);
                     valid = true;
                     break;
-                case MyConstants.byName:
+                case MyConstants.notFree:
                     parameters.put(MyConstants.filterTypeKey, MyConstants.notFree);
                     valid = true;
                     break;
