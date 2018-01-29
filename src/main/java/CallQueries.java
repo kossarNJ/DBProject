@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -226,7 +227,7 @@ class CallQueries {
 
     }
 
-    String newApp(String appID, String appCategory, String appName, String size, String price, String icon, String appLanguage, String description, String appOSName, String appOSVersion, String appVersion, String coID, Date releaseDate) {
+    String newApp(String appID, String appCategory, String appName, String size, String price, String icon, String appLanguage, String description, String appOSName, String appOSVersion, String appVersion, String coID, Date releaseDate, ArrayList<String> permissions) {
         String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst1 = con.prepareStatement(query3)
@@ -299,6 +300,31 @@ class CallQueries {
 
                     Logger lgr = Logger.getLogger(CallQueries.class.getName());
                     lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+
+                for (String p : permissions) {
+
+                    String query5 = "INSERT INTO APP_Permission(permission, app_id) VALUES(?, ?)";
+
+                    try (Connection con2 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                         PreparedStatement pst = con2.prepareStatement(query5)) {
+
+                        pst.setString(1, p);
+                        pst.setString(2, appID);
+
+                        pst.executeUpdate();
+
+                        try {
+                            con2.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (SQLException ex) {
+
+                        Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                        lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                    }
                 }
 
 
@@ -1147,7 +1173,7 @@ class CallQueries {
         return null;
     }
 
-    String newVersion(String version, String appId, Date date) {
+    String newVersion(String version, String appId, Date date, ArrayList<String> addedFeatures, ArrayList<String> resolvedBugs) {
         String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst1 = con.prepareStatement(query3)
@@ -1185,6 +1211,60 @@ class CallQueries {
 
                     Logger lgr = Logger.getLogger(CallQueries.class.getName());
                     lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+
+
+
+                for (String r : resolvedBugs) {
+
+                    String query5 = "INSERT INTO Resolved_Bugs(bug, version_no, app_id) VALUES(?, ?, ?)";
+
+                    try (Connection con2 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                         PreparedStatement pst = con2.prepareStatement(query5)) {
+
+                        pst.setString(1, r);
+                        pst.setString(2, version);
+                        pst.setString(3, appId);
+
+                        pst.executeUpdate();
+
+                        try {
+                            con2.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (SQLException ex) {
+
+                        Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                        lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                    }
+                }
+
+                for (String f : addedFeatures) {
+
+                    String query5 = "INSERT INTO ADDED_FEATURE(feature, version_no, app_id) VALUES(?, ?, ?)";
+
+                    try (Connection con2 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+                         PreparedStatement pst = con2.prepareStatement(query5)) {
+
+                        pst.setString(1, f);
+                        pst.setString(2, version);
+                        pst.setString(3, appId);
+
+                        pst.executeUpdate();
+
+                        try {
+                            con2.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (SQLException ex) {
+
+                        Logger lgr = Logger.getLogger(CallQueries.class.getName());
+                        lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                    }
                 }
 
             }

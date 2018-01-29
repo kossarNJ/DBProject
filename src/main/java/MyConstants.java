@@ -47,6 +47,12 @@ class MyConstants {
 
     static final String bankAccountKey = "bankAccountKey";
 
+    static final String permissionKey = "permissionKey";
+
+    static final String addedFeaturesKey = "addedFeaturesKey";
+
+    static final String resolvedBugsKey = "resolvedBugsKey";
+
     static final String commentNumber = "comment_number";
     static final String heading = "heading";
     static final String content = "review_content";

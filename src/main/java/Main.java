@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -69,7 +70,7 @@ public class Main {
                         break;
                     case MyConstants.commandNewAPP:
                         result = getFurtherInput.newAPP(scanner);
-                        response = callQueries.newApp((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.appCategoryKey), (String) result.get(MyConstants.appNameKey), (String) result.get(MyConstants.sizeKey), (String) result.get(MyConstants.priceKey), (String) result.get(MyConstants.iconKey), (String) result.get(MyConstants.appLanguageKey), (String) result.get(MyConstants.descriptionKey), (String) result.get(MyConstants.appOSNameKey), (String) result.get(MyConstants.appOSVersionKey), (String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.coIDKey), (Date) result.get(MyConstants.appReleaseDateKey));
+                        response = callQueries.newApp((String) result.get(MyConstants.appIDKey), (String) result.get(MyConstants.appCategoryKey), (String) result.get(MyConstants.appNameKey), (String) result.get(MyConstants.sizeKey), (String) result.get(MyConstants.priceKey), (String) result.get(MyConstants.iconKey), (String) result.get(MyConstants.appLanguageKey), (String) result.get(MyConstants.descriptionKey), (String) result.get(MyConstants.appOSNameKey), (String) result.get(MyConstants.appOSVersionKey), (String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.coIDKey), (Date) result.get(MyConstants.appReleaseDateKey), (ArrayList<String>) result.get(MyConstants.permissionKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandNewReview:
@@ -141,7 +142,7 @@ public class Main {
                         break;
                     case MyConstants.commandNewVersion:
                         result = getFurtherInput.newVersion(scanner);
-                        response = callQueries.newVersion((String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.appIDKey), (Date) result.get(MyConstants.versionDateKey));
+                        response = callQueries.newVersion((String) result.get(MyConstants.appVersionKey), (String) result.get(MyConstants.appIDKey), (Date) result.get(MyConstants.versionDateKey), (ArrayList<String>) result.get(MyConstants.addedFeaturesKey), (ArrayList<String>) result.get(MyConstants.resolvedBugsKey));
                         System.out.println(response);
                         break;
                     case MyConstants.commandRegisterBankAccount:

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -61,6 +62,10 @@ class GetFurtherInput {
     private static final String downloadDate = "Please enter the date of the download in the following format: yyyy/mm/dd.";
 
     private static final String bankAccount = "Please enter your card number. (must be a 16 digit number)";
+
+    private static final String permission = "Please enter the number of your application's permissions. Then enter each permission in a new line.";
+    private static final String resolvedBugs = "Please enter the number of your version's resolved bugs. Then enter each bug in a new line.";
+    private static final String addedFeatures = "Please enter the number of your version's added features. Then enter each feature in a new line.";
 
 
     HashMap<String, Object> signUpUser(Scanner scanner) {
@@ -186,6 +191,15 @@ class GetFurtherInput {
         System.out.println(appReleaseDate);
         Date date = Date.getDateFromString(scanner.nextLine());
         parameters.put(MyConstants.appReleaseDateKey, date);
+
+        System.out.println(permission);
+        int permissionNum = Integer.parseInt(scanner.nextLine());
+        ArrayList<String> permissions = new ArrayList<>();
+        for (int i = 0; i < permissionNum; i++) {
+            permissions.add(scanner.nextLine());
+        }
+        parameters.put(MyConstants.permissionKey, permissions);
+
 
 
         return parameters;
@@ -398,6 +412,22 @@ class GetFurtherInput {
 
         System.out.println(appVersion);
         parameters.put(MyConstants.appVersionKey, scanner.nextLine());
+
+        System.out.println(addedFeatures);
+        int featureNum = Integer.parseInt(scanner.nextLine());
+        ArrayList<String> features = new ArrayList<>();
+        for (int i = 0; i < featureNum; i++) {
+            features.add(scanner.nextLine());
+        }
+        parameters.put(MyConstants.addedFeaturesKey, features);
+
+        System.out.println(resolvedBugs);
+        int resolvedBugsNum = Integer.parseInt(scanner.nextLine());
+        ArrayList<String> bugs = new ArrayList<>();
+        for (int i = 0; i < resolvedBugsNum; i++) {
+            bugs.add(scanner.nextLine());
+        }
+        parameters.put(MyConstants.resolvedBugsKey, bugs);
         return parameters;
     }
 

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by saharzargarzadeh on 1/28/18.
  */
@@ -13,7 +15,11 @@ public class testQueries {
 
         CallQueries callQueries = new CallQueries();
 //        callQueries.signUpUser("sahar@gmail.com", "123", "kossar", "najafi", "234567", Date.getDateFromString("1997-05-15"), "najafiaghdam@ce.sharif.edu", "https://www.google.com", "0914789", "macOS", "El Capitan");
-//        callQueries.newApp("myApp6", "Entertainment", "game", "4.5", "0", "https://www.google.com", "english", "who cares?", "macOS", "El Capitan", "1.0", "myCompany", Date.getDateFromString("1997-05-15"));
+//        ArrayList<String> p = new ArrayList<>();
+//        p.add("phone");
+//        p.add("contacts");
+//        p.add("camera");
+//        callQueries.newApp("myApp7", "Entertainment", "game", "4.5", "0", "https://www.google.com", "english", "who cares?", "macOS", "El Capitan", "1.0", "myCompany", Date.getDateFromString("1997-05-15"), p);
 //        callQueries.signInUser("kossrana@gmail.com", "12");
 //        callQueries.signUpDeveloper()
 //        callQueries.newApp("")
@@ -26,7 +32,13 @@ public class testQueries {
 //        callQueries.topApps();
 //        callQueries.newCompany("myCompany", "company", "tehran, iran", "app");
 //        callQueries.addEmployer("myCompany");
-//        callQueries.newVersion("2.0.0", "myApp6", Date.getDateFromString("1396-10-9"));
+//        ArrayList<String> f = new ArrayList<>();
+//        f.add("robustness");
+//        f.add("network");
+//        ArrayList<String> r = new ArrayList<>();
+//        r.add("lag");
+//        r.add("crash");
+//        callQueries.newVersion("8.0.0", "myApp2", Date.getDateFromString("1396-10-9"), f, r);
 //        callQueries.downloadApp("myApp3", Date.getDateFromString("1396-11-9"));
 //        callQueries.registerAccount("1000000000000200");
 //        callQueries.viewDownloaded();
