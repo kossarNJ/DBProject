@@ -21,7 +21,7 @@ class CallQueries {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.YEAR, dateOfBirth.getYear());
             calendar.set(Calendar.DAY_OF_MONTH, dateOfBirth.getDay());
-            calendar.set(Calendar.MONTH, dateOfBirth.getMonth());
+            calendar.set(Calendar.MONTH, dateOfBirth.getMonth()-1);
             java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
             pst.setString(1, userEmail);
             pst.setString(2, fName);
@@ -60,7 +60,7 @@ class CallQueries {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.YEAR, dateOfBirth.getYear());
             calendar.set(Calendar.DAY_OF_MONTH, dateOfBirth.getDay());
-            calendar.set(Calendar.MONTH, dateOfBirth.getMonth());
+            calendar.set(Calendar.MONTH, dateOfBirth.getMonth()-1);
             java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
 
             pst.setString(1, userEmail);
@@ -257,7 +257,7 @@ class CallQueries {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.YEAR, releaseDate.getYear());
                     calendar.set(Calendar.DAY_OF_MONTH, releaseDate.getDay());
-                    calendar.set(Calendar.MONTH, releaseDate.getMonth());
+                    calendar.set(Calendar.MONTH, releaseDate.getMonth()-1);
                     java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
 
                     pst.setString(1, appVersion);
@@ -389,7 +389,7 @@ class CallQueries {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.YEAR, date.getYear());
             calendar.set(Calendar.DAY_OF_MONTH, date.getDay());
-            calendar.set(Calendar.MONTH, date.getMonth());
+            calendar.set(Calendar.MONTH, date.getMonth()-1);
             java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
 
             pst.setString(1, reviewId);
@@ -811,7 +811,7 @@ class CallQueries {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.YEAR, downloadDate.getYear());
                     calendar.set(Calendar.DAY_OF_MONTH, downloadDate.getDay());
-                    calendar.set(Calendar.MONTH, downloadDate.getMonth());
+                    calendar.set(Calendar.MONTH, downloadDate.getMonth()-1);
                     java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
 
                     pst1.setString(1, Main.userID);
@@ -915,7 +915,7 @@ class CallQueries {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.YEAR, date.getYear());
                     calendar.set(Calendar.DAY_OF_MONTH, date.getDay());
-                    calendar.set(Calendar.MONTH, date.getMonth());
+                    calendar.set(Calendar.MONTH, date.getMonth()-1);
                     java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
 
                     pst.setString(1, lastVersion);
@@ -1220,7 +1220,7 @@ class CallQueries {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.YEAR, date.getYear());
                     calendar.set(Calendar.DAY_OF_MONTH, date.getDay());
-                    calendar.set(Calendar.MONTH, date.getMonth());
+                    calendar.set(Calendar.MONTH, date.getMonth()-1);
                     java.sql.Date date1 = new java.sql.Date(calendar.getTime().getTime());
 
                     pst.setString(1, version);
