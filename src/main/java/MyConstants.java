@@ -51,6 +51,22 @@ class MyConstants {
     static final String rating = "rating";
     static final String date = "review_date";
 
+    static final String name = "name";
+    static final String size = "size";
+    static final String price = "price";
+    static final String icon = "icon";
+    static final String app_language = "app_language";
+    static final String rate = "rate";
+    static final String description = "description";
+    static final String os_name = "os_name";
+    static final String os_version = "os_version";
+    static final String co_id = "co_id";
+    static final String last_version = "last_version";
+    static final String app_id = "app_id";
+    static final String category = "category";
+
+
+
 
 
 
@@ -135,4 +151,10 @@ class MyConstants {
     static final String errorInCommandMessage = "The query you entered does not match any of the valid commands.\n" +
             "If you don't know what command to enter, type \"help\".";
     static final String errorNoAPP = "There is no such application in the database.";
+    static final String errorNoAPPFree = "There are no free applications in the database.";
+    static final String errorNoAPPAtAll = "There are no applications in the database.";
+    static final String errorNoAPPNotFree = "There are no not free applications in the database.";
+    static final String errorNoAPPCategory = "There are no applications in this category.";
+    static final String errorNoAPPName = "There are no applications with this name.";
+    static final String errorNoReview = "There are no reviews for this application.";
 }

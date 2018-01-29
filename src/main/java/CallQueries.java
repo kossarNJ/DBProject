@@ -422,13 +422,18 @@ public class CallQueries {
             pst.setString(1, appID);
             ResultSet rs = pst.executeQuery();
             int i = 1;
-            while (rs.next()) {
-                System.out.println("review #" + i++);
-                System.out.println(MyConstants.heading + ": " + rs.getString(MyConstants.heading));
-                System.out.println(MyConstants.content + ": " + rs.getString(MyConstants.content));
-                System.out.println(MyConstants.rating + ": " + rs.getString(MyConstants.rating));
-                System.out.println(MyConstants.date + ": " + rs.getString(MyConstants.date));
-                System.out.println();
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoReview);
+            }
+            {
+                while (rs.next()) {
+                    System.out.println("review #" + i++);
+                    System.out.println(MyConstants.heading + ": " + rs.getString(MyConstants.heading));
+                    System.out.println(MyConstants.content + ": " + rs.getString(MyConstants.content));
+                    System.out.println(MyConstants.rating + ": " + rs.getString(MyConstants.rating));
+                    System.out.println(MyConstants.date + ": " + rs.getString(MyConstants.date));
+                    System.out.println();
+                }
             }
 
             try {
@@ -448,75 +453,313 @@ public class CallQueries {
     }
 
     public String searchAppsByCategory(String category) {
-        //TODO implement
-
         String query = "SELECT * FROM APP WHERE category = ?;";
-//
-//        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
-//             PreparedStatement pst = con.prepareStatement(query)
-//        ) {
-//            pst.setString(1, appID);
-//            ResultSet rs = pst.executeQuery();
-//            int i = 1;
-//            while (rs.next()) {
-//                System.out.println("review #" + i++);
-//                System.out.println(MyConstants.heading + ": " + rs.getString(MyConstants.heading));
-//                System.out.println(MyConstants.content + ": " + rs.getString(MyConstants.content));
-//                System.out.println(MyConstants.rating + ": " + rs.getString(MyConstants.rating));
-//                System.out.println(MyConstants.date + ": " + rs.getString(MyConstants.date));
-//                System.out.println();
-//            }
-//
-//            try {
-//                con.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//
-//        } catch (SQLException ex) {
-//
-//            Logger lgr = Logger.getLogger(CallQueries.class.getName());
-//            lgr.log(Level.SEVERE, ex.getMessage(), ex);
-//        }
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            pst.setString(1, category);
+            ResultSet rs = pst.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPPCategory);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
 
         return null;
 
     }
 
     public String searchAppsByName(String name) {
-        //TODO implement
 
         String query = "SELECT * FROM APP WHERE name = ?;";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            pst.setString(1, name);
+            ResultSet rs = pst.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPPName);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
 
         return null;
 
     }
 
     public String topFreeApps() {
-        //TODO implement
+        String query = "SELECT * FROM APP WHERE price = 0 ORDER BY rate DESC;";
 
-        String query = "SELECT * FROM APP WHERE price = 0 ORDER BY rate;";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            ResultSet rs = pst.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPPFree);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+            }
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
         return null;
-
     }
 
     public String topNotFreeApps() {
-        //TODO implement
+        String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate DESC;";
 
-        String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate;";
+
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            ResultSet rs = pst.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPPNotFree);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
 
         return null;
 
     }
 
     public String topApps() {
-        //TODO implement
+        String query = "SELECT * FROM APP ORDER BY rate DESC;";
 
-        String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate;";
+        try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
+             PreparedStatement pst = con.prepareStatement(query)
+        ) {
+            ResultSet rs = pst.executeQuery();
+            int i = 1;
+            if (!rs.next()) {
+                System.out.println(MyConstants.errorNoAPPAtAll);
+            } else {
+                System.out.println("application #" + i++);
+                System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                System.out.println();
+                while (rs.next()) {
+                    System.out.println("application #" + i++);
+                    System.out.println(MyConstants.app_id + ": " + rs.getString(MyConstants.app_id));
+                    System.out.println(MyConstants.name + ": " + rs.getString(MyConstants.name));
+                    System.out.println(MyConstants.category + ": " + rs.getString(MyConstants.category));
+                    System.out.println(MyConstants.size + ": " + rs.getString(MyConstants.size));
+                    System.out.println(MyConstants.price + ": " + rs.getString(MyConstants.price));
+                    System.out.println(MyConstants.icon + ": " + rs.getString(MyConstants.icon));
+                    System.out.println(MyConstants.app_language + ": " + rs.getString(MyConstants.app_language));
+                    System.out.println(MyConstants.rate + ": " + rs.getString(MyConstants.rate));
+                    System.out.println(MyConstants.description + ": " + rs.getString(MyConstants.description));
+                    System.out.println(MyConstants.co_id + ": " + rs.getString(MyConstants.co_id));
+                    System.out.println(MyConstants.os_name + ": " + rs.getString(MyConstants.os_name));
+                    System.out.println(MyConstants.os_version + ": " + rs.getString(MyConstants.os_version));
+                    System.out.println(MyConstants.commentNumber + ": " + rs.getString(MyConstants.commentNumber));
+                    System.out.println(MyConstants.last_version + ": " + rs.getString(MyConstants.last_version));
+                    System.out.println();
+                }
+            }
 
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+
+            Logger lgr = Logger.getLogger(CallQueries.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
         return null;
-
     }
 
     public String similarApps(String appId) {
