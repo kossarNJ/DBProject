@@ -1,11 +1,10 @@
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
  * Created by saharzargarzadeh on 1/27/18.
  */
-public class GetFurtherInput {
+class GetFurtherInput {
     private static final String userEmail = "Please enter your email address.";
     private static final String userPass = "Please enter your connectionPassword.";
     private static final String fname = "Please enter your first name.";
@@ -64,14 +63,9 @@ public class GetFurtherInput {
     private static final String bankAccount = "Please enter your card number. (must be a 16 digit number)";
 
 
-//    private static final String rate = "Please enter the language of the application.";
-
-
-    public HashMap<String, Object> signUpUser(Scanner scanner) {
+    HashMap<String, Object> signUpUser(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(userEmail);
-//        String input = scanner.nextLine();
-        //do we check to see if it's a valid email address?
         parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
@@ -108,11 +102,9 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> signInUser(Scanner scanner) {
+    HashMap<String, Object> signInUser(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(userEmail);
-        String input = scanner.nextLine();
-        //do we check to see if it's a valid email address?
         parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
@@ -122,11 +114,9 @@ public class GetFurtherInput {
     }
 
 
-    public HashMap<String, Object> signOutUser(Scanner scanner) {
+    HashMap<String, Object> signOutUser(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(userEmail);
-//        String input = scanner.nextLine();
-        //do we check to see if it's a valid email address?
         parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
@@ -136,7 +126,7 @@ public class GetFurtherInput {
     }
 
 
-    public HashMap<String, Object> newCompany(Scanner scanner) {
+    HashMap<String, Object> newCompany(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
 
         System.out.println(coID);
@@ -154,7 +144,7 @@ public class GetFurtherInput {
     }
 
 
-    public HashMap<String, Object> newAPP(Scanner scanner) {
+    HashMap<String, Object> newAPP(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
 
         System.out.println(appID);
@@ -178,23 +168,17 @@ public class GetFurtherInput {
         System.out.println(appLanguage);
         parameters.put(MyConstants.appLanguageKey, scanner.nextLine());
 
-//        System.out.println(rate);
-//        parameters.put(MyConstants.rateKey, scanner.nextLine());
-
         System.out.println(description);
         parameters.put(MyConstants.descriptionKey, scanner.nextLine());
 
-        System.out.println(coID); //??
-        parameters.put(MyConstants.coIDKey, scanner.nextLine()); //??
+        System.out.println(coID);
+        parameters.put(MyConstants.coIDKey, scanner.nextLine());
 
         System.out.println(appOSName);
         parameters.put(MyConstants.appOSNameKey, scanner.nextLine());
 
         System.out.println(appOSVersion);
         parameters.put(MyConstants.appOSVersionKey, scanner.nextLine());
-
-//        System.out.println(commentNum);
-//        parameters.put(MyConstants.commentNum, scanner.nextLine());
 
         System.out.println(appVersion);
         parameters.put(MyConstants.appVersionKey, scanner.nextLine());
@@ -208,12 +192,10 @@ public class GetFurtherInput {
     }
 
 
-    public HashMap<String, Object> signUpDeveloper(Scanner scanner) {
+    HashMap<String, Object> signUpDeveloper(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(userEmail);
-        String input = scanner.nextLine();
-        //do we check to see if it's a valid email address?
-        parameters.put(MyConstants.userEmailKey, input);
+        parameters.put(MyConstants.userEmailKey, scanner.nextLine());
 
         System.out.println(userPass);
         parameters.put(MyConstants.userPassKey, scanner.nextLine());
@@ -253,7 +235,7 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> newReview(Scanner scanner) {
+    HashMap<String, Object> newReview(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
 
         System.out.println(appID);
@@ -271,29 +253,23 @@ public class GetFurtherInput {
         System.out.println(reviewDate);
         Date date = Date.getDateFromString(scanner.nextLine());
         parameters.put(MyConstants.reviewDateKey, date);
-
-//        String reviewID = parameters.get(MyConstants.appIDKey) +
-
-//        parameters.put(MyConstants.reviewIDKey, )
-        //review id is the app id + app.commentNum
-        //TODO ye fekri be hale review ID bokon.
         return parameters;
     }
 
-    public HashMap<String, Object> getReviews(Scanner scanner) {
+    HashMap<String, Object> getReviews(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(appID);
         parameters.put(MyConstants.appIDKey, scanner.nextLine());
         return parameters;
     }
 
-    public HashMap<String, Object> searchApps(Scanner scanner) {
+    HashMap<String, Object> searchApps(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(MyConstants.searchTypeMessage);
         System.out.println(MyConstants.byCategory);
         System.out.println(MyConstants.byName);
         boolean valid = false;
-        String type = "";
+        String type;
         while (!valid) {
             type = scanner.nextLine();
             switch (type) {
@@ -314,24 +290,22 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> topApps(Scanner scanner) {
+    HashMap<String, Object> topApps(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(MyConstants.topAppsTypeMessage);
         System.out.println(MyConstants.free);
         System.out.println(MyConstants.notFree);
         System.out.println(MyConstants.any);
         boolean valid = false;
-        String type = "";
+        String type;
         while (!valid) {
             type = scanner.nextLine();
             switch (type) {
                 case MyConstants.free:
-//                    System.out.println(appCategory);
                     parameters.put(MyConstants.filterTypeKey, MyConstants.free);
                     valid = true;
                     break;
                 case MyConstants.byName:
-//                    System.out.println(appName);
                     parameters.put(MyConstants.filterTypeKey, MyConstants.notFree);
                     valid = true;
                     break;
@@ -347,14 +321,14 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> similarApps(Scanner scanner) {
-        HashMap<String, Object> parameters = new HashMap<>();
-        System.out.println(appID);
-        parameters.put(MyConstants.appIDKey, scanner.nextLine());
-        return parameters;
-    }
+//    public HashMap<String, Object> similarApps(Scanner scanner) {
+//        HashMap<String, Object> parameters = new HashMap<>();
+//        System.out.println(appID);
+//        parameters.put(MyConstants.appIDKey, scanner.nextLine());
+//        return parameters;
+//    }
 
-    public HashMap<String, Object> downloadApp (Scanner scanner) {
+    HashMap<String, Object> downloadApp(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(appID);
         parameters.put(MyConstants.appIDKey, scanner.nextLine());
@@ -365,13 +339,13 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> updateApp(Scanner scanner) {
+    HashMap<String, Object> updateApp(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(MyConstants.updateAppsTypeMessage);
         System.out.println(MyConstants.all);
         System.out.println(MyConstants.specific);
         boolean valid = false;
-        String type = "";
+        String type;
         while (!valid) {
             type = scanner.nextLine();
             switch (type) {
@@ -399,21 +373,21 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> viewCompanyApps(Scanner scanner) {
+    HashMap<String, Object> viewCompanyApps(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(coID);
         parameters.put(MyConstants.coIDKey, scanner.nextLine());
         return parameters;
     }
 
-    public HashMap<String, Object> addEmployer(Scanner scanner) {
+    HashMap<String, Object> addEmployer(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(coID);
         parameters.put(MyConstants.coIDKey, scanner.nextLine());
         return parameters;
     }
 
-    public HashMap<String, Object> newVersion(Scanner scanner) {
+    HashMap<String, Object> newVersion(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(appID);
         parameters.put(MyConstants.appIDKey, scanner.nextLine());
@@ -427,7 +401,7 @@ public class GetFurtherInput {
         return parameters;
     }
 
-    public HashMap<String, Object> registerAccount(Scanner scanner) {
+    HashMap<String, Object> registerAccount(Scanner scanner) {
         HashMap<String, Object> parameters = new HashMap<>();
         System.out.println(bankAccount);
         parameters.put(MyConstants.bankAccountKey, scanner.nextLine());

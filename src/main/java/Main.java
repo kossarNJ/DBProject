@@ -5,13 +5,13 @@ import java.util.Scanner;
  * Created by saharzargarzadeh on 1/27/18.
  */
 public class Main {
-    public static boolean isLoggedIn = false;
-    public static String connectionUserID = "postgres";
-    public static String connectionPassword = "123";
-    public static String url = "jdbc:postgresql://localhost:5432/App_Store_DB";
+    static boolean isLoggedIn = false;
+    static String connectionUserID = "postgres";
+    static String connectionPassword = "123";
+    static String url = "jdbc:postgresql://localhost:5432/App_Store_DB";
 
-    public static String userID = "";
-    public static String password = "";
+    static String userID = "";
+    static String password = "";
 
 
 
@@ -102,11 +102,11 @@ public class Main {
                         }
                         System.out.println(response);
                         break;
-                    case MyConstants.commandSimilarAPPs:
-                        result = getFurtherInput.similarApps(scanner);
-                        response = callQueries.similarApps((String) result.get(MyConstants.appIDKey));
-                        System.out.println(response);
-                        break;
+//                    case MyConstants.commandSimilarAPPs:
+//                        result = getFurtherInput.similarApps(scanner);
+//                        response = callQueries.similarApps((String) result.get(MyConstants.appIDKey));
+//                        System.out.println(response);
+//                        break;
                     case MyConstants.commandDownloadAPP:
                         result = getFurtherInput.downloadApp(scanner);
                         response = callQueries.downloadApp((String) result.get(MyConstants.appIDKey), (Date) result.get(MyConstants.downloadDateKey));

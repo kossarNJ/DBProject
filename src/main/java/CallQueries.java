@@ -7,11 +7,10 @@ import java.util.logging.Logger;
 /**
  * Created by saharzargarzadeh on 1/27/18.
  */
-public class CallQueries {
+class CallQueries {
 
-    public String signUpUser(String userEmail, String userPass, String fName, String lName, String postalCode, Date dateOfBirth, String backupEmail, String imageURL, String tel, String appOSName, String appOSVersion) {
+    String signUpUser(String userEmail, String userPass, String fName, String lName, String postalCode, Date dateOfBirth, String backupEmail, String imageURL, String tel, String appOSName, String appOSVersion) {
 
-        System.out.println("just inside func.");
         String query1 = "INSERT INTO Users(user_email, fName, lName, postal_code, date_of_birth, backup_email, user_password,image_url, tel_no) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -27,15 +26,10 @@ public class CallQueries {
             pst.setString(3, lName);
             pst.setInt(4, Integer.parseInt(postalCode));
             pst.setDate(5, date);
-            //System.out.println("after email");
             pst.setString(6, backupEmail);
             pst.setString(7, userPass);
             pst.setString(8, imageURL);
             pst.setInt(9, Integer.parseInt(tel));
-//            pst.setQueryTimeout(10);
-            //System.out.println("metadata: " + pst.getParameterMetaData().getParameterCount());
-
-            //System.out.println(pst.executeUpdate());
 
             try {
                 con.close();
@@ -75,7 +69,7 @@ public class CallQueries {
         return null;
     }
 
-    public String signUpDeveloper(String userEmail, String userPass, String fName, String lName, String postalCode, Date dateOfBirth, String backupEmail, String imageURL, String tel, String resume, String appOSName, String appOSVersion) {
+    String signUpDeveloper(String userEmail, String userPass, String fName, String lName, String postalCode, Date dateOfBirth, String backupEmail, String imageURL, String tel, String resume, String appOSName, String appOSVersion) {
         String query1 = "INSERT INTO Users(user_email, fName, lName, postal_code, date_of_birth, backup_email, user_password,image_url, tel_no) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -160,7 +154,7 @@ public class CallQueries {
     }
 
 
-    public String signInUser(String userEmail, String userPass) {
+    String signInUser(String userEmail, String userPass) {
         String query = "SELECT user_password FROM Users WHERE user_email =  ? AND user_password = ?;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -192,7 +186,7 @@ public class CallQueries {
 
     }
 
-    public String signOutUser(String userEmail, String userPass) {
+    String signOutUser(String userEmail, String userPass) {
         if (Main.isLoggedIn && Main.connectionUserID.equals(userEmail) && Main.connectionPassword.equals(userPass)) {
             Main.isLoggedIn = false;
             Main.password = "";
@@ -203,7 +197,7 @@ public class CallQueries {
         return null;
     }
 
-    public String newCompany(String coID, String coName, String address, String field) {
+    String newCompany(String coID, String coName, String address, String field) {
         String query = "INSERT INTO Company(co_id, name, address, field_of_work) VALUES(?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -232,7 +226,7 @@ public class CallQueries {
 
     }
 
-    public String newApp(String appID, String appCategory, String appName, String size, String price, String icon, String appLanguage, String description, String appOSName, String appOSVersion, String appVersion, String coID, Date releaseDate) {
+    String newApp(String appID, String appCategory, String appName, String size, String price, String icon, String appLanguage, String description, String appOSName, String appOSVersion, String appVersion, String coID, Date releaseDate) {
         String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst1 = con.prepareStatement(query3)
@@ -348,8 +342,7 @@ public class CallQueries {
 
     }
 
-    public String newReview(String appID, String heading, String context, String rating, Date date) {
-        //TODO increase the length of review id.
+    String newReview(String appID, String heading, String context, String rating, Date date) {
         String query3 = "SELECT comment_number FROM APP WHERE app_id = ?";
         String reviewId = "default";
 
@@ -414,7 +407,7 @@ public class CallQueries {
 
     }
 
-    public String getReviews(String appID) {
+    String getReviews(String appID) {
         String query = "SELECT * FROM Review WHERE app_id = ?";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -453,7 +446,7 @@ public class CallQueries {
 
     }
 
-    public String searchAppsByCategory(String category) {
+    String searchAppsByCategory(String category) {
         String query = "SELECT * FROM APP WHERE category = ?;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -515,7 +508,7 @@ public class CallQueries {
 
     }
 
-    public String searchAppsByName(String name) {
+    String searchAppsByName(String name) {
 
         String query = "SELECT * FROM APP WHERE name = ?;";
 
@@ -577,7 +570,7 @@ public class CallQueries {
 
     }
 
-    public String topFreeApps() {
+    String topFreeApps() {
         String query = "SELECT * FROM APP WHERE price = 0 ORDER BY rate DESC;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -638,7 +631,7 @@ public class CallQueries {
         return null;
     }
 
-    public String topNotFreeApps() {
+    String topNotFreeApps() {
         String query = "SELECT * FROM APP WHERE price > 0 ORDER BY rate DESC;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -701,7 +694,7 @@ public class CallQueries {
 
     }
 
-    public String topApps() {
+    String topApps() {
         String query = "SELECT * FROM APP ORDER BY rate DESC;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -762,13 +755,8 @@ public class CallQueries {
         return null;
     }
 
-    public String similarApps(String appId) {
-        return null;
-        //TODO implement
-    }
-
-    public String downloadApp(String appID, Date downloadDate) {
-        String lastVersion = "";
+    String downloadApp(String appID, Date downloadDate) {
+        String lastVersion;
         String query = "SELECT last_version FROM APP WHERE app_id = ?;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -825,7 +813,7 @@ public class CallQueries {
         return null;
     }
 
-    public String updateAllApps(Date date) {
+    String updateAllApps(Date date) {
 
         String query = "SELECT app_id FROM APP WHERE APP.app_id IN (SELECT Has_Downloaded.app_id FROM Has_Downloaded WHERE version_no != ALL (SELECT last_version FROM APP WHERE APP.app_id = Has_Downloaded.app_id) AND Has_Downloaded.user_id = ?);";
 
@@ -857,9 +845,9 @@ public class CallQueries {
         return null;
     }
 
-    public String updateSpecificApp(String appID, Date date) {
+    String updateSpecificApp(String appID, Date date) {
 
-        String lastVersion = "";
+        String lastVersion;
         String query1 = "SELECT last_version FROM APP WHERE app_id = ?;";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -918,7 +906,7 @@ public class CallQueries {
 
     }
 
-    public String viewUpdatable() {
+    String viewUpdatable() {
         String query = "SELECT * FROM APP WHERE APP.app_id IN (SELECT Has_Downloaded.app_id FROM Has_Downloaded WHERE version_no != ALL (SELECT last_version FROM APP WHERE APP.app_id = Has_Downloaded.app_id) AND Has_Downloaded.user_id = ?);";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -983,7 +971,7 @@ public class CallQueries {
         return null;
     }
 
-    public String viewDownloaded() {
+    String viewDownloaded() {
         String query = "SELECT * FROM APP WHERE EXISTS(SELECT app_id FROM Has_Downloaded WHERE APP.app_id = Has_Downloaded.app_id AND user_id = ?);";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst1 = con.prepareStatement(query)
@@ -1046,7 +1034,7 @@ public class CallQueries {
         return null;
     }
 
-    public String viewCompanyApps(String coID) {
+    String viewCompanyApps(String coID) {
         String query = "SELECT * FROM APP WHERE EXISTS(SELECT * FROM Developes WHERE APP.app_id = Developes.app_id AND EXISTS(SELECT * FROM Employment WHERE Developes.user_id = Employment.user_id AND Employment.co_id = ?));";
 
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -1111,7 +1099,7 @@ public class CallQueries {
         return null;
     }
 
-    public String addEmployer(String coID) {
+    String addEmployer(String coID) {
         String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst1 = con.prepareStatement(query3)
@@ -1159,7 +1147,7 @@ public class CallQueries {
         return null;
     }
 
-    public String newVersion(String version, String appId, Date date) {
+    String newVersion(String version, String appId, Date date) {
         String query3 = "SELECT user_id FROM Developer_User WHERE user_id = ?";
         try (Connection con = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
              PreparedStatement pst1 = con.prepareStatement(query3)
@@ -1215,7 +1203,7 @@ public class CallQueries {
         return null;
     }
 
-    public String registerAccount(String bankAccount) {
+    String registerAccount(String bankAccount) {
         String query = "INSERT INTO User_Bank_Account (card_no, user_id) VALUES(?, ?)";
 
         try (Connection con1 = DriverManager.getConnection(Main.url, Main.connectionUserID, Main.connectionPassword);
@@ -1238,6 +1226,13 @@ public class CallQueries {
         }
         return null;
     }
+
+
+//    String similarApps(String appId) {
+//        return null;
+//        //TODO implement
+//    }
+
 }
 
 

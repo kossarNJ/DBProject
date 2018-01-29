@@ -152,7 +152,7 @@ class MyConstants {
     static final String errorTopAppTypeMessage = "You may only filter applications that are:\n" +
             "- free\n" +
             "- not free\n" +
-            "any";
+            "- any";
     static final String errorUpdateTypeMessage = "You may only update:\n" +
             "- all\n" +
             "- specific";
